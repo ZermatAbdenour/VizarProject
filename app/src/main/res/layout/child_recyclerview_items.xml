@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/Categorie_Card"
+        android:layout_width="348dp"
+        android:layout_height="216dp"
+        app:cardCornerRadius="6dp"
+        android:layout_centerInParent="true"
+
+
+
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/greyblur"
+            android:translationZ="1sp"
+            ></View>
+        <ImageView
+            android:id="@+id/Categorie_Image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/cat_cat1"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/Category_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="top"
+            android:lineSpacingExtra="3sp"
+            android:text="Wardrobes"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textStyle="bold"
+
+            android:translationZ="2sp" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

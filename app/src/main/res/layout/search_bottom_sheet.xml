@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/search_bottom_sheet_background"
+    android:orientation="vertical"
+    android:paddingBottom="30dp"
+    android:id="@+id/FiltersButtomSheetContainer"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="14dp"
+
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:lineSpacingExtra="3sp"
+            android:text="Filter"
+            android:textColor="#090A0A"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            />
+
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/ExitFiltersBottomSheet"
+
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/exit_search_bottom_sheet"
+            android:minWidth="10dp"
+            android:minHeight="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.512" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price Range"
+        android:textSize="20sp"
+        android:textColor="#090A0A"
+        android:layout_marginRight="180dp"
+        android:lineSpacingExtra="32sp"
+        android:paddingLeft="16dp"
+
+
+        />
+
+
+
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Categorie"
+        android:textSize="20sp"
+        android:textColor="#090A0A"
+        android:layout_marginRight="180dp"
+        android:lineSpacingExtra="32sp"
+        android:paddingLeft="16dp"
+        />
+
+
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="All categories"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+
+        android:layout_marginHorizontal="22dp"
+        />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="Wardrobes"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+
+        android:layout_marginHorizontal="22dp"
+        />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="Sofas"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+        android:layout_marginHorizontal="22dp"
+        />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="Dressers"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+        android:layout_marginHorizontal="22dp"
+        />
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="Armchairs"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+        android:layout_marginHorizontal="22dp"
+        />
+
+    <CheckBox
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:button="@drawable/categorie_frame"
+
+        android:text="Dining Tables"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+        android:layout_marginHorizontal="22dp"
+        />
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="190dp"
+    android:layout_height="250dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:outlineProvider="bounds"
+
+  >
+
+<androidx.cardview.widget.CardView
+    android:layout_width="172dp"
+    android:layout_height="240dp"
+    app:cardCornerRadius="7dp"
+    app:cardBackgroundColor="#FEFEFE"
+
+    android:layout_centerInParent="true"
+    android:elevation="10dp"
+>
+
+
+    
+
+     <ImageView
+         android:id="@+id/productimage"
+         android:layout_width="match_parent"
+         android:layout_height="172dp"
+         android:scaleType="centerCrop"
+         android:background="#838383"
+         android:src="@drawable/cat_cat1"
+
+         >
+
+     </ImageView>
+
+
+    <TextView
+        android:id="@+id/productname"
+
+        android:layout_width="140dp"
+        android:layout_height="28dp"
+        android:lineSpacingExtra="16sp"
+        android:textColor="@color/black"
+       android:layout_gravity="center|bottom|left"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="7dp"
+        android:text="Product name"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="126dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center|bottom|left"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="10dp"
+        android:text="Description"
+        android:textSize="10sp"
+        android:textColor="#7B7B7B"
+        android:lineSpacingExtra="0sp"
+
+        />
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="69dp"
+        android:layout_height="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="44.50$"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:lineSpacingExtra="18sp"
+        android:layout_gravity="center|bottom|left"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="-10dp"
+        />
+
+
+
+</androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
