@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">APP NAME</string>
+    <!--page d'accueil -->
+    <string name="home_page_title">Featured categories </string>
+    <string name="home_page_recommendation">recommendations </string>
+    <string name="home_page_for_you">Recent viewed</string>
+
+    <!--produits sauvegardés-->
+    <string name="saved_products_title">125 saved furniture</string>
+    <!-- product customize -->
+    <string name="product_name">Large TV stand </string>
+    <string name="product_show_price">$ 190.00       </string>
+    <string name="product_seller">by username </string>
+    <string name="color"> Color </string>
+    <string name="read_more"> Read more </string>
+
+
+    <string name="content">Beautiful and simply chic piece that is essential to any elevated home atmosphere. Design and construction exceed strict European and US standars for safety, health and ergonomics.
+</string>
+
+    <string name="title_activity_addproductdetails"> addproductdetails </string>
+
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_add_product_details">Add_product_details</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="title_activity_homesellerchoicepage">Homesellerchoicepage</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+</resources>

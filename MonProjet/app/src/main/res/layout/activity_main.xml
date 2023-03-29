@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    <!--IMPORTANT -->
+
+    <!-- before running the code , always use an emulator with 800*360 resolution -->
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+tools:context=".MainActivity" >
+
+
+<TextView
+    style="@style/DefaultTextStyle"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:layout_marginLeft="17px"
+    android:layout_marginTop="372px"
+    android:layout_width="wrap_content"
+    android:text="@string/product_name"
+    android:textSize="32px"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    style="@style/some_id"
+    android:layout_height="wrap_content"
+    android:textStyle="bold"
+    android:layout_marginLeft="17px"
+    android:layout_marginTop="429px"
+    android:layout_width="wrap_content"
+    android:text="@string/product_show_price"
+    android:textSize="16px"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<TextView
+    style="@style/by_username"
+    android:id="@+id/textView2"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="17px"
+    android:layout_marginTop="479px"
+    android:layout_width="match_parent"
+    android:text="@string/product_seller"
+    android:textSize="16px"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ImageView
+    android:background="@drawable/tv"
+    android:id="@+id/ImageTv"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="459px"
+    android:layout_width="match_parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="17px"
+        android:layout_marginTop="48px"
+        android:layout_width="wrap_content"
+        android:src="@drawable/go_back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:background="@drawable/selection"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="301px"
+        android:layout_marginTop="321px"
+        android:layout_width="wrap_content"
+        android:src="@drawable/saving_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+<TextView
+    style="@style/color"
+    android:id="@+id/textView"
+    android:textStyle="bold"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="24px"
+    android:layout_marginTop="528px"
+    android:layout_width="wrap_content"
+    android:text="@string/color"
+    android:textSize="16px"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+<ImageView
+    android:id="@+id/imageView"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="24px"
+    android:layout_marginTop="550px"
+    android:layout_width="wrap_content"
+    android:src="@drawable/colors"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+
+<ImageView
+
+    android:id="@+id/imageView3"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="218px"
+    android:layout_marginTop="479px"
+    android:layout_width="wrap_content"
+    android:src="@drawable/sales_pages"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+
+
+    />
+    <TextView
+        style="@style/specs"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41px"
+        android:layout_marginTop="764px"
+        android:layout_width="wrap_content"
+        android:text="Width,mm"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="289px"
+        android:layout_marginTop="764px"
+        android:layout_width="wrap_content"
+        android:text="1035"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41px"
+        android:layout_marginTop="812px"
+        android:layout_width="wrap_content"
+        android:text="Height,mm"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="298px"
+        android:layout_marginTop="812px"
+        android:layout_width="wrap_content"
+        android:text="760"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41px"
+        android:layout_marginTop="860px"
+        android:layout_width="wrap_content"
+        android:text="Depth,mm"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="298px"
+        android:layout_marginTop="860px"
+        android:layout_width="wrap_content"
+        android:text="550"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="41px"
+        android:layout_marginTop="908px"
+        android:layout_width="wrap_content"
+        android:text="Weight,kg"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="292px"
+        android:layout_marginTop="908px"
+        android:layout_width="wrap_content"
+        android:text="40.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="41px"
+        android:layout_marginTop="956px"
+        android:layout_width="wrap_content"
+        android:text="Volume,m3"
+        android:textSize="16px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="297px"
+        android:layout_marginTop="956px"
+        android:layout_width="wrap_content"
+        android:text="990"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        style="@style/specs2"
+        android:layout_height="wrap_content"
+
+        android:layout_marginLeft="297px"
+        android:layout_marginTop="1100px"
+        android:layout_width="wrap_content"
+        android:text="\n"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12px"
+        android:layout_marginTop="1010px"
+        android:layout_width="wrap_content"
+        android:src="@drawable/try_in_home"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+
+    <com.skyhope.showmoretextview.ShowMoreTextView
+        android:id="@+id/text_view_show_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/beautiful_a"
+    android:layout_marginLeft="17px"
+    android:layout_marginTop="604px"
+    android:layout_marginRight="17px"
+    android:text="@string/content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+

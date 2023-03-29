@@ -1,0 +1,112 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.MonProjet" parent="Theme.MaterialComponents.DayNight.DarkActionBar"></style>
+
+
+    <style name="Theme.MonProjet.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="DefaultTextStyle">
+        <item name="android:textSize">32px</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="some_id">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#090A0A</item>
+    </style>
+
+    <style name="by_username">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#828282</item>
+    </style>
+
+    <style name="color">
+        <item name="android:textSize">16px</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="read_more">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#CA6E3C</item>
+    </style>
+
+    <style name="beautiful_a">
+        <item name="android:textSize">14px</item>
+        <item name="android:textColor">#090A0A</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">1px</item>
+        <item name="android:lineSpacingExtra">8px</item>
+    </style>
+
+    <style name="width_mm">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#090A0A</item>
+    </style>
+
+    <style name="add_new_pro">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#171717</item>
+    </style>
+
+    <style name="make_sure_t">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#171717</item>
+    </style>
+
+    <style name="specs">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#090A0A</item>
+    </style>
+
+    <style name="specs2">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#545454</item>
+    </style>
+
+    <style name="delete_prod">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#040404</item>
+    </style>
+
+    <style name="deleteunder">
+        <item name="android:lineSpacingExtra">8px</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">#040404</item>
+    </style>
+
+    <style name="username">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+    <style name="name_gmail_">
+        <item name="android:textSize">15sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">#B4B4B4</item>
+    </style>
+
+    <style name="full_name">
+        <item name="android:textSize">23sp</item>
+        <item name="android:textColor">#090A0A</item>
+    </style>
+
+    <style name="full_named">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textColor">#545454</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.CardView" parent="">
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeBottomLeft">0%</item>
+        <item name="cornerSizeBottomRight">0%</item>
+    </style>
+
+
+    <style name="Theme.MonProjet.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MonProjet.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
