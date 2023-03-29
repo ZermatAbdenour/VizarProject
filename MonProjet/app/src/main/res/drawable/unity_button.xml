@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="74dp"
+    android:height="73dp"
+    android:viewportWidth="74"
+    android:viewportHeight="73">
+    <group>
+        <path
+            android:fillColor="#FFCA6E3C"
+            android:pathData="M7 32c0-16.57 13.43-30 30-30h0c16.57 0 30 13.43 30 30v0c0 16.57-13.43 30-30 30h0c-16.57 0-30-13.43-30-30z"/>
+        <path
+            android:fillColor="#FFCA6E3C"
+            android:pathData="M7 32c0-16.57 13.43-30 30-30h0c16.57 0 30 13.43 30 30v0c0 16.57-13.43 30-30 30h0c-16.57 0-30-13.43-30-30z"/>
+        <path
+            android:strokeWidth="1"
+            android:pathData="M7.5 32c0-16.29 13.21-29.5 29.5-29.5h0c16.29 0 29.5 13.21 29.5 29.5v0c0 16.29-13.21 29.5-29.5 29.5h0c-16.29 0-29.5-13.21-29.5-29.5z">
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="7"
+                    android:startY="2"
+                    android:endX="37"
+                    android:endY="62">
+                    <item
+                        android:color="#FFFFFFFF"
+                        android:offset="0"/>
+                    <item
+                        android:color="#00FFFFFF"
+                        android:offset="1"/>
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+    <path
+        android:strokeColor="#FF000000"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M38.03 19.01l8.68 4.68c1.01 0.55 1.01 2.11 0 2.66l-8.68 4.68c-0.78 0.41-1.68 0.41-2.46 0l-8.68-4.68c-1.01-0.55-1.01-2.11 0-2.66l8.68-4.68c0.78-0.41 1.68-0.41 2.46 0ZM25.6 29.51l8.07 4.04c1 0.5 1.64 1.53 1.64 2.65v7.63c0 1.1-1.16 1.81-2.15 1.32l-8.06-4.04c-0.5-0.25-0.9-0.63-1.2-1.1-0.29-0.47-0.44-1-0.44-1.56v-7.62c0-1.11 1.16-1.82 2.14-1.32Zm22.38 0l-8.07 4.04c-1 0.5-1.64 1.53-1.64 2.65v7.63c0 1.1 1.16 1.81 2.15 1.32l8.06-4.04c1-0.51 1.64-1.54 1.64-2.66v-7.62c0-1.11-1.16-1.82-2.14-1.32Z"/>
+</vector>
+
