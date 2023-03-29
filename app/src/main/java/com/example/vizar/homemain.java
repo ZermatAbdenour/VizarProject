@@ -3,6 +3,7 @@ package com.example.vizar;
 import android.icu.lang.UCharacter;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -64,7 +65,6 @@ import java.util.List;
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
             }
-
         }
 
         @Override
@@ -88,16 +88,14 @@ import java.util.List;
             return inflater.inflate(R.layout.fragment_homemain, container, false);
         }
 
+
+        private boolean isLoading;
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-
-
-
             recyclerview = view.findViewById(R.id.Parent_recyclerView);
             recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
-            recyclerview.setHasFixedSize(true);
             Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
             Adapter listadapter = new Adapter(productslist);
 
@@ -106,6 +104,28 @@ import java.util.List;
 
             recyclerview.setAdapter(concatAdapter);
             concatAdapter.notifyDataSetChanged();
+
+            recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+
+                    if (!recyclerView.canScrollVertically(1)&& !isLoading) {
+                        isLoading =true;
+                        productslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
+                        productslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
+                        productslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
+                        productslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
+                        System.out.println("End");
+                        concatAdapter.notifyDataSetChanged();
+                    }
+                    else
+                        isLoading = false;
+
+                }
+            });
         }
+
+
 
     }
