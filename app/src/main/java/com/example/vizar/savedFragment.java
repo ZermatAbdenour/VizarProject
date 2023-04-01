@@ -2,11 +2,22 @@ package com.example.vizar;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.vizar.Model.product;
+import com.example.vizar.Remote.BaseGridConcatAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +34,8 @@ public class savedFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private RecyclerView recyclerview;
+    List<product> savedproductslist = new ArrayList<>();
 
     public savedFragment() {
         // Required empty public constructor
@@ -59,6 +72,32 @@ public class savedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        savedproductslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
+        savedproductslist.add(new product("table","$200","good",R.drawable.background));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_diningtable));
+        savedproductslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
+        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
+
+
         return inflater.inflate(R.layout.fragment_saved, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerview = view.findViewById(R.id.saved_recyclerView);
+        recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
+        recyclerview.setHasFixedSize(true);
+        Adapter adapter = new Adapter(savedproductslist);
+        footeradapter footer = new footeradapter(R.layout.savedfooter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(new BaseGridConcatAdapter(getContext(),adapter,2,"Saved Products"),footer);
+        recyclerview.setAdapter(concatAdapter);
+        adapter.notifyDataSetChanged();
+
     }
 }

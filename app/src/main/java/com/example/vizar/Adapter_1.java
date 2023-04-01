@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.vizar.Model.CategorieCard;
 import com.example.vizar.Model.Horizantalrecyclerview;
@@ -56,6 +58,7 @@ public class Adapter_1 extends RecyclerView.Adapter<Adapter_1.MyViewHolder>{
             holder.childRecyclerView.setAdapter(childRecyclerViewAdapter);
 
 
+
     }
     @Override
     public int getItemCount() {
@@ -76,6 +79,8 @@ public class Adapter_1 extends RecyclerView.Adapter<Adapter_1.MyViewHolder>{
 
             Title = itemView.findViewById(R.id.Title);
             childRecyclerView = itemView.findViewById(R.id.Child_RV);
+            SnapHelper helper = new LinearSnapHelper();
+            helper.attachToRecyclerView(childRecyclerView);
         }
     }
 }

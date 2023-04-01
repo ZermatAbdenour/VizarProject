@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,10 +19,12 @@ public class BaseGridConcatAdapter extends RecyclerView.Adapter<BaseConcatHolder
     private Adapter productsAdapter;
     private int spanCount;
 
-    public BaseGridConcatAdapter(Context context, Adapter productsAdapter, int spanCount) {
+    private String Title;
+    public BaseGridConcatAdapter(Context context, Adapter productsAdapter, int spanCount,String title) {
         this.context = context;
         this.productsAdapter = productsAdapter;
         this.spanCount = spanCount;
+        this.Title = title;
     }
 
     @NonNull
@@ -29,6 +32,7 @@ public class BaseGridConcatAdapter extends RecyclerView.Adapter<BaseConcatHolder
     public BaseConcatHolder<?> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.concat_row, parent, false);
         ((RecyclerView)view.findViewById(R.id.rv_concat)).setLayoutManager(new GridLayoutManager(context, spanCount));
+        ((TextView)view.findViewById(R.id.Title1)).setText(Title);
         return new ConcatViewHolder(view);
     }
 

@@ -3,12 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".savedFragment">
+    tools:context=".homemain"
+    android:background="@color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/saved_recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Saved" />
+        android:padding="4dp"
+        android:scrollbars="vertical"
+        android:layout_gravity="center"
+        tools:listitem="@layout/product"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:scrollbarAlwaysDrawVerticalTrack="false"
+        />
 
 </FrameLayout>
