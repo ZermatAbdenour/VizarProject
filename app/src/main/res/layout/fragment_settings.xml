@@ -12,22 +12,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/switch2"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/UserMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:elevation="10dp"
-            android:outlineProvider="bounds"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/switchtosellerbgd"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
 
-            android:thumb="@drawable/usermodethumb"
-            android:track="@drawable/usermodetuck"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:scaleX="0.9"
+
+            android:thumb="@drawable/switchtosellertumb"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.095" />
+
+            app:track="@drawable/track" />
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"
@@ -35,7 +36,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
@@ -51,6 +51,8 @@
                 android:src="@drawable/lock"></ImageView>
 
             <Button
+                style="@style/Theme.AppCompat.Light.NoActionBar"
+                android:textColor="@color/black"
                 android:layout_width="305dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
@@ -86,7 +88,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
@@ -102,6 +103,8 @@
                 android:src="@drawable/user"></ImageView>
 
             <Button
+                android:textColor="@color/black"
+                style="@style/Theme.AppCompat.Light.NoActionBar"
                 android:layout_width="305dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
@@ -137,7 +140,6 @@
             android:layout_height="56dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.509"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
@@ -153,6 +155,7 @@
                 android:src="@drawable/sign_out"></ImageView>
 
             <Button
+                style="@style/Theme.AppCompat.Light.NoActionBar"
                 android:layout_width="305dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"
@@ -165,6 +168,7 @@
                 android:background="@drawable/transaprentbackground"
                 android:text="Log out"
                 android:textAlignment="textStart"
+                android:textColor="@color/black"
                 android:textAllCaps="false"
                 android:textStyle="normal"></Button>
 
@@ -204,7 +208,7 @@
 
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="35dp"
             android:lineHeight="24sp"
 
 
@@ -212,33 +216,36 @@
             android:textColor="#090A0A"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/switch2"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/UserMode"></TextView>
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:elevation="11dp"
             android:text="Costumer Mode"
-            android:textStyle="bold"
             android:textColor="#090A0A"
-            android:elevation="11dp"
-            app:layout_constraintStart_toStartOf="@+id/switch2"
-            app:layout_constraintTop_toTopOf="@+id/switch2"></TextView>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/UserMode"
+            app:layout_constraintStart_toStartOf="@+id/UserMode"
+            app:layout_constraintTop_toTopOf="@+id/UserMode"
+            app:layout_constraintVertical_bias="0.511"></TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="36dp"
-            android:text="Seller Mode"
-            android:textStyle="bold"
-            android:textColor="#090A0A"
+            android:layout_marginEnd="64dp"
             android:elevation="11dp"
-            app:layout_constraintEnd_toEndOf="@+id/switch2"
-            app:layout_constraintTop_toTopOf="@+id/switch2"></TextView>
+            android:text="Seller Mode"
+            android:textColor="#090A0A"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/UserMode"
+            app:layout_constraintEnd_toEndOf="@+id/UserMode"
+            app:layout_constraintTop_toTopOf="@+id/UserMode"
+            app:layout_constraintVertical_bias="0.511"></TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

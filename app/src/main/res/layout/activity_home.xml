@@ -55,7 +55,6 @@
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"
             android:name="com.example.vizar.homemain"
@@ -157,7 +156,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:elevation="100dp"
-
 
         app:maxImageSize="32dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 

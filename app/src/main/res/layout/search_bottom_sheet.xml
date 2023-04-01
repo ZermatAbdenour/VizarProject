@@ -64,7 +64,11 @@
         />
 
 
+    <com.google.android.material.slider.RangeSlider
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        ></com.google.android.material.slider.RangeSlider>
 
 
 
@@ -145,5 +149,40 @@
         android:layoutDirection="rtl"
         android:layout_marginHorizontal="22dp"
         />
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All categories"
+
+            />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wardrobes"
+
+            />
+
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sofas"
+
+            />
+        <com.google.android.material.chip.Chip
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dressers"
+            app:chipBackgroundColor="#CA6E3C"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+
+            />
+
+    </com.google.android.material.chip.ChipGroup>
 
 </LinearLayout>

@@ -1,25 +1,23 @@
 package com.example.vizar;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link settingsFragment#newInstance} factory method to
+ * Use the {@link HomeMainSellerMode#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class settingsFragment extends Fragment {
+public class HomeMainSellerMode extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +28,7 @@ public class settingsFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public settingsFragment() {
+    public HomeMainSellerMode() {
         // Required empty public constructor
     }
 
@@ -40,11 +38,11 @@ public class settingsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment settingsFragment.
+     * @return A new instance of fragment HomeMainSellerMode.
      */
     // TODO: Rename and change types and number of parameters
-    public static settingsFragment newInstance(String param1, String param2) {
-        settingsFragment fragment = new settingsFragment();
+    public static HomeMainSellerMode newInstance(String param1, String param2) {
+        HomeMainSellerMode fragment = new HomeMainSellerMode();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,20 +63,25 @@ public class settingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_home_main_seller_mode, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext()); // getActivity() for Fragment
-        SwitchCompat UserModeSwitch =  (SwitchCompat)view.findViewById(R.id.UserMode);
-        UserModeSwitch.setChecked(prefs.getBoolean("IsSeller",false));
-        UserModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                Boolean statusLocked = prefs.edit().putBoolean("IsSeller", b).commit();
+        CardView AddNewProductCard = (CardView) view.findViewById(R.id.AddNewProduct);
+        FragmentManager fragmentManager = getParentFragmentManager();
+        //Load the add new Product page
+        AddNewProductCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView3,AddNewProduct.class,null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
