@@ -84,5 +84,31 @@ public class HomeMainSellerMode extends Fragment {
                         .commit();
             }
         });
+
+        CardView DeleteProduct = (CardView) view.findViewById(R.id.DeleteProduct);
+        DeleteProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView3,Deleteproduct.class,null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        CardView Warehouse = (CardView) view.findViewById(R.id.ViewWarehouse);
+        Warehouse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainerView3,warehouse.class,null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }

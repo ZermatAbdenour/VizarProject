@@ -17,13 +17,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
     private List<product> productsList;
-
-    public Adapter(List<product> productsList){this .productsList = productsList;}
+    private int layout;
+    public Adapter(List<product> productsList,int layout){this .productsList = productsList;this.layout=layout;}
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout,parent,false);
         return new ViewHolder(view);
 
     }

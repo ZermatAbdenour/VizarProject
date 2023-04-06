@@ -97,7 +97,7 @@ import java.util.List;
             recyclerview = view.findViewById(R.id.Parent_recyclerView);
             recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
             Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
-            Adapter listadapter = new Adapter(productslist);
+            Adapter listadapter = new Adapter(productslist,R.layout.product);
             footeradapter footer = new footeradapter(R.layout.footer);
 
             ConcatAdapter concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Top sales"),new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
