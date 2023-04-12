@@ -1,16 +1,65 @@
 package com.example.vizar;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.media.Image;
+import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.example.vizar.Model.GUIDDto;
+import com.example.vizar.Model.User;
+import com.example.vizar.Model.product;
+import com.example.vizar.Model.productDto;
+import com.example.vizar.Remote.APILink;
+import com.example.vizar.Remote.RetrofitClient;
+import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import java.io.File;
+import java.io.IOException;
+
+import id.zelory.compressor.Compressor;
+import io.paperdb.Paper;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +81,7 @@ public class AddNewProduct extends Fragment {
         // Required empty public constructor
     }
 
+    ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -41,6 +91,30 @@ public class AddNewProduct extends Fragment {
      * @return A new instance of fragment AddNewProduct.
      */
     // TODO: Rename and change types and number of parameters
+    APILink apiLink;
+
+    String[] items ={"wardrobes","Sofas","Dressers","Armchairs","Dining table","TV Stands"};
+
+    ArrayAdapter<String> adapterItems;
+
+
+    //References
+    private TextInputEditText NameInputField;
+    private TextInputEditText PriceInputField;
+    private TextInputEditText DescriptionInputField;
+    private AutoCompleteTextView CategorieDropDown;
+    private TextInputEditText WebLinkInputField;
+    private TextInputEditText WidthInputField;
+    private TextInputEditText HeightInputField;
+    private TextInputEditText DepthInputField;
+    private TextInputEditText WeightInputField;
+    private TextInputEditText VolumeInputField;
+    private Uri ImageUri;
+    private Uri ModelUri;
+
+    private String ImageID;
+    private String ModelID;
+
     public static AddNewProduct newInstance(String param1, String param2) {
         AddNewProduct fragment = new AddNewProduct();
         Bundle args = new Bundle();
@@ -57,6 +131,8 @@ public class AddNewProduct extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        apiLink = RetrofitClient.getInstance().create(APILink.class);
     }
 
     @Override
@@ -69,6 +145,32 @@ public class AddNewProduct extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        //Start Setting References
+        NameInputField = view.findViewById(R.id.NameInputField);
+        PriceInputField = view.findViewById(R.id.PriceInputField);
+        DescriptionInputField = view.findViewById(R.id.DescriptionInputField);
+        //Category DropDown
+        CategorieDropDown=view.findViewById(R.id.CategorieDropDown);
+        adapterItems = new ArrayAdapter<String>(getContext(),R.layout.list_item,items);
+        CategorieDropDown.setAdapter(adapterItems);
+        WebLinkInputField = view.findViewById(R.id.WebSiteInputField);
+        WidthInputField = view.findViewById(R.id.WidthInputField);
+        HeightInputField = view.findViewById(R.id.HeightInputField);
+        DepthInputField = view.findViewById(R.id.DepthInputField);
+        WeightInputField = view.findViewById(R.id.WeightInputField);
+        VolumeInputField = view.findViewById(R.id.VolumeInputField);
+        //End References
+
+
+        CategorieDropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
+                String item = parent.getItemAtPosition(i).toString();
+                Toast.makeText(getContext(),"Item"+item,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //Return Button Listener
         ImageButton ReturnToSellerHome = (ImageButton) view.findViewById(R.id.ReturnToSellerHome);
         ReturnToSellerHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,5 +183,236 @@ public class AddNewProduct extends Fragment {
                         .commit();
             }
         });
+
+        //Photo Picker ActivityResultLauncher
+        ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
+                registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+                    // Callback is invoked after the user selects a media item or closes the
+                    // photo picker.
+                    if (uri != null) {
+                        Log.d("PhotoPicker", "Selected URI: " + uri);
+                        ImageUri = uri;
+                    } else {
+                        Log.d("PhotoPicker", "No media selected");
+                    }
+                });
+
+        //File Picker ActivityResultLauncher
+        ActivityResultLauncher<Intent> pickModel = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),uri->{
+                    if (uri != null) {
+                        Log.d("filePicker", "Selected URI: " + uri);
+                        ModelUri =uri.getData().getData();
+
+                    } else {
+                        Log.d("filePicker", "No file selected");
+                    }
+                });
+
+
+
+        //Photo Selector Listener
+
+        RelativeLayout SelectImage = (RelativeLayout) view.findViewById(R.id.SelectProductImage);
+
+        SelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickMedia.launch(new PickVisualMediaRequest.Builder()
+                        .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                        .build());
+            }
+        });
+
+
+        //Model Selector Listener
+
+        RelativeLayout SelectModel = (RelativeLayout) view.findViewById(R.id.SelectProductModel);
+
+        SelectModel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("application/octet-stream");
+                pickModel.launch(intent);
+            }
+        });
+
+        //On Create New Product Button Clicked
+
+        Button CreateNewProductButton = (Button) view.findViewById(R.id.CreateNewProductButton);
+
+        CreateNewProductButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(ValidateInputs());
+                if(ValidateInputs()){
+                    //Upload Image and Save ImageID
+                    UploadImage();
+                    ShowSnakeBar("Publishing your product ...");
+                }
+                else ShowSnakeBar("some informations are missing");
+            }
+        });
+
+    }
+
+
+    private void UploadImage(){
+        File imagefile = new File(FileHelper.getRealPathFromURI(getContext(),ImageUri));
+
+        File CompressedImageFile;
+        try {
+            CompressedImageFile = File.createTempFile("TempCompressedImage", ".png",getActivity().getApplicationContext().getCacheDir());
+            CompressedImageFile = new Compressor(getContext()).setMaxHeight(400).setMaxWidth(500).compressToFile(imagefile);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(getContext().getContentResolver().getType(ImageUri)),
+                        CompressedImageFile
+                );
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("Image", CompressedImageFile.getName(), requestFile);
+
+
+        Call<GUIDDto> UploadImage = apiLink.uploadimage(body);
+        File finalCompressedImageFile = CompressedImageFile;
+        UploadImage.enqueue(new Callback<GUIDDto>() {
+            @Override
+            public void onResponse(Call<GUIDDto> call, Response<GUIDDto> response) {
+                ImageID = response.body().id;
+                System.out.println(response.body().id);
+
+                //Clean Up
+                finalCompressedImageFile.delete();
+
+
+                //Upload Model After image Uploaded
+                UploadModel();
+            }
+
+            @Override
+            public void onFailure(Call<GUIDDto> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
+
+
+    }
+    private void UploadModel(){
+        //Upload Model and Save ModelID
+        File modelfile = new File(FileHelper.getRealPathFromURI(getContext(),ModelUri));
+
+        RequestBody requestModelFile =
+                RequestBody.create(
+                        MediaType.parse(getContext().getContentResolver().getType(ModelUri)),
+                        modelfile
+                );
+        MultipartBody.Part Modelbody =
+                MultipartBody.Part.createFormData("Model", modelfile.getName(), requestModelFile);
+
+
+        Call<GUIDDto> UploadFile = apiLink.uploadmodel(Modelbody);
+
+        UploadFile.enqueue(new Callback<GUIDDto>() {
+            @Override
+            public void onResponse(Call<GUIDDto> call, Response<GUIDDto> response) {
+                ModelID = response.body().id;
+                System.out.println("Model ID : " + response.body().id);
+
+                //Create new Product Dto and Upload it to Database
+                CreateProduct();
+            }
+
+            @Override
+            public void onFailure(Call<GUIDDto> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void CreateProduct(){
+        User SellerAccount = Paper.book().read("User");
+        productDto productdto = new productDto(
+                NameInputField.getText().toString(),
+                Float.valueOf(PriceInputField.getText().toString()),
+                DescriptionInputField.getText().toString(),
+                CategorieDropDown.getText().toString(),
+                SellerAccount.id,
+                WebLinkInputField.getText().toString(),
+                Float.valueOf(WidthInputField.getText().toString()),
+                Float.valueOf(HeightInputField.getText().toString()),
+                Float.valueOf(DepthInputField.getText().toString()),
+                Float.valueOf(WeightInputField.getText().toString()),
+                Float.valueOf(VolumeInputField.getText().toString()),
+                ImageID,
+                ModelID
+                );
+
+        Call<product> UploadProduct = apiLink.uploadproduct(productdto);
+
+        UploadProduct.enqueue(new Callback<product>() {
+            @Override
+            public void onResponse(Call<product> call, Response<product> response) {
+                System.out.println(response.body().id);
+                ShowSnakeBar("Your product has been created !");
+            }
+
+            @Override
+            public void onFailure(Call<product> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
+    }
+
+    public boolean ValidateInputs(){
+        if(isEmpty(NameInputField))
+            return false;
+        if(isEmpty(PriceInputField))
+            return false;
+        if(isEmpty(DescriptionInputField))
+            return false;
+        if(CategorieDropDown.getText().toString().trim().length() == 0)
+            return false;
+        if(isEmpty(WebLinkInputField) || !(WebLinkInputField.getText().toString().startsWith("https://") || WebLinkInputField.getText().toString().startsWith("http://")))
+            return false;
+        if(isEmpty(PriceInputField))
+            return false;
+        if(isEmpty(WidthInputField))
+            return false;
+        if(isEmpty(HeightInputField))
+            return false;
+        if(isEmpty(DepthInputField))
+            return false;
+        if(isEmpty(WeightInputField))
+            return false;
+        if(isEmpty(VolumeInputField))
+            return false;
+        if(ImageUri == null)
+            return false;
+        if(ModelUri == null)
+            return false;
+
+        return  true;
+
+    }
+
+    private boolean isEmpty(TextInputEditText etText) {
+        return etText.getText().toString().trim().length() == 0;
+    }
+
+    private void ShowSnakeBar(String Text){
+        Snackbar snackbar = Snackbar
+                .make((CoordinatorLayout)getActivity().findViewById(R.id.HomeSnackBar), Text, Snackbar.LENGTH_LONG);
+
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(Color.BLACK);
+        snackbar.show();
     }
 }

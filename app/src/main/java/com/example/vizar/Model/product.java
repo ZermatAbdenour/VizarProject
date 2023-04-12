@@ -1,16 +1,60 @@
 package com.example.vizar.Model;
 
-public class product {
-    private String name;
-    private String price;
-    private String description;
-    private int imageview;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public product(String name, String price, String description, int imageview) {
+import java.io.Serializable;
+
+public class product implements Serializable {
+    @SerializedName("id")
+    @Expose
+    public String id;
+    @SerializedName("name")
+    @Expose
+    public String name;
+    @SerializedName("price")
+    @Expose
+    public float price;
+    @SerializedName("description")
+    @Expose
+    public String description;
+    @SerializedName("categorie")
+    @Expose
+    public String categorie;
+    @SerializedName("sellerID")
+    @Expose
+    public String sellerid;
+    @SerializedName("webLink")
+    @Expose
+    public String weblink;
+    @SerializedName("width")
+    @Expose
+    public float width;
+    @SerializedName("height")
+    @Expose
+    public float height;
+    @SerializedName("depth")
+    @Expose
+    public float depth;
+    @SerializedName("weight")
+    @Expose
+    public float weight;
+    @SerializedName("volume")
+    @Expose
+    public float volume;
+    @SerializedName("imageID")
+    @Expose
+    public String imageid;
+    @SerializedName("modelID")
+    @Expose
+    public String modelid;
+
+    public SellerDto seller;
+
+    public product(String name, float price, String description) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.imageview = imageview;
     }
 
     public String getName() {
@@ -21,11 +65,11 @@ public class product {
         this.name = name;
     }
 
-    public String getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -35,13 +79,5 @@ public class product {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getImageview() {
-        return imageview;
-    }
-
-    public void setImageview(int imageview) {
-        this.imageview = imageview;
     }
 }

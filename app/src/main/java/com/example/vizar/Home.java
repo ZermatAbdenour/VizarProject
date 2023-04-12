@@ -6,13 +6,8 @@ import static com.example.vizar.R.color.Grey;
 import static com.example.vizar.R.color.white;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.ConcatAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -23,11 +18,11 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.vizar.Model.Horizantalrecyclerview;
-import com.example.vizar.Model.product;
+import com.example.vizar.Model.User;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity {
     private RecyclerView parentRecyclerView;
@@ -46,16 +41,21 @@ public class Home extends AppCompatActivity {
         settings= findViewById(R.id.settingbutton);
         search= findViewById(R.id.searchbutton);
 
-
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if((boolean)Paper.book().read("IsSeller",false))
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainerView3,HomeMainSellerMode.class,null)
+                    .setReorderingAllowed(true)
+                    .addToBackStack(null)
+                    .commit();
 
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                if(!prefs.getBoolean("IsSeller", false))
+                if(!(boolean)Paper.book().read("IsSeller",false))
                     fragmentManager.beginTransaction()
                             .replace(R.id.fragmentContainerView3,homemain.class,null)
                             .setReorderingAllowed(true)

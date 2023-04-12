@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import com.example.vizar.Model.CategorieCard;
-import com.example.vizar.Model.Horizantalrecyclerview;
 import com.example.vizar.Remote.CategorieAdapter;
 
 import java.util.ArrayList;

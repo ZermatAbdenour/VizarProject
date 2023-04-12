@@ -36,7 +36,7 @@
             android:layout_marginBottom="10dp"
 
             app:cardCornerRadius="8dp"
-            app:cardElevation="25dp"
+            app:cardElevation="7dp"
 
             android:clickable="true"
             >
@@ -90,7 +90,7 @@
             android:layout_marginBottom="10dp"
 
             app:cardCornerRadius="8dp"
-            app:cardElevation="25dp"
+            app:cardElevation="7dp"
 
             android:clickable="true"
             >
@@ -145,7 +145,7 @@
             android:layout_marginTop="10dp"
 
             app:cardCornerRadius="8dp"
-            app:cardElevation="25dp"
+            app:cardElevation="7dp"
 
             android:clickable="true"
             >

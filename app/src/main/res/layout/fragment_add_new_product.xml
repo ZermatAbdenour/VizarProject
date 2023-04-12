@@ -63,6 +63,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/NameInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:paddingTop="10dp"
@@ -82,9 +83,8 @@
                 android:hint="Select furniture categorie"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
                 <AutoCompleteTextView
-                    android:id="@+id/autocompletetxt"
+                    android:id="@+id/CategorieDropDown"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:paddingTop="10dp"
@@ -109,6 +109,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/PriceInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -133,11 +134,11 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/WebSiteInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:inputType="textUri"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,15 +158,13 @@
 
                 >
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/DescriptionInputField"
                     android:layout_width="match_parent"
+                    android:gravity="start"
                     android:layout_height="200dp"
-                    android:paddingBottom="160dp"
-                    android:paddingTop="160dp"
                     android:maxWidth="10dp"
                     android:singleLine="false"
-                    android:text="100000kdjqsjdkdsjkjfksdklfsjfskjdsfijisidfiosiisjisjvdiojvoisdivijvdsojvsijdoivjsiojdvidsjivjsjidjsfiojsifjsjfoisjisjdfoifjsiisjdfsioijsjfisjofoisjdjfsoidjifojsodijviojoidsvjosdjovisojdijfjsfjosjd sidjfjisdjfsijdfjosid jifdsosjiojfsjidsfjsjdifojsdoifjsjoifdsjofjsjdjoifjs sdfjiidjsfjijdsofjsjdsijfoisjdfoijsiodfjdsjfidosdfiojsiofjs sdiojfjoiofsfsdfsfsdfdsqjsdjqskjdhqjsdsdqdqjkqshdjkhqkjsdkjqhsdjqjsqhdjsqhdjqjsqdhkqsldja"
-
-                    android:inputType="textImeMultiLine" />
+                    android:inputType="textMultiLine" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--width,mm -->
@@ -184,6 +183,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/WidthInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -208,6 +208,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/HeightInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -232,6 +233,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/DepthInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -255,6 +257,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/WeightInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -278,6 +281,7 @@
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/VolumeInputField"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:inputType="numberDecimal"
@@ -287,10 +291,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <RelativeLayout
+                android:id="@+id/SelectProductImage"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
+                android:clickable="true"
                 >
 
                 <ImageView
@@ -303,6 +309,7 @@
                 </ImageView>
 
                 <ImageView
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -324,6 +331,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/SelectProductModel"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:layout_marginTop="20dp"
@@ -360,6 +368,7 @@
             </RelativeLayout>
 
             <Button
+                android:id="@+id/CreateNewProductButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="56dp"
@@ -369,5 +378,7 @@
                 android:background="@drawable/buttonripple"
                 android:text="Publish Now" />
         </LinearLayout>
+
+
     </ScrollView>
 </FrameLayout>

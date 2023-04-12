@@ -51,6 +51,7 @@
                 android:src="@drawable/lock"></ImageView>
 
             <Button
+                android:id="@+id/EditPasswordButton"
                 style="@style/Theme.AppCompat.Light.NoActionBar"
                 android:textColor="@color/black"
                 android:layout_width="305dp"
@@ -103,6 +104,7 @@
                 android:src="@drawable/user"></ImageView>
 
             <Button
+                android:id="@+id/EditProfileButton"
                 android:textColor="@color/black"
                 style="@style/Theme.AppCompat.Light.NoActionBar"
                 android:layout_width="305dp"
@@ -156,6 +158,7 @@
 
             <Button
                 style="@style/Theme.AppCompat.Light.NoActionBar"
+                android:id="@+id/LogoutButton"
                 android:layout_width="305dp"
                 android:layout_height="40dp"
                 android:layout_alignParentTop="true"

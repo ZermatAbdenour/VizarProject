@@ -54,7 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        >
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"
             android:name="com.example.vizar.homemain"
@@ -69,97 +70,118 @@
             />
     </androidx.cardview.widget.CardView>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/HomeSnackBar"
+        android:translationZ="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/Navbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginVertical="65dp"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <RelativeLayout
-        android:id="@+id/linearLayout2"
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/Navbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/botnavbar"
-        android:elevation="40dp"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:elevation="40dp">
 
-        >
+        <RelativeLayout
+            android:id="@+id/navbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/botnavbar"
+            android:elevation="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-
-        <ImageButton
-            android:id="@+id/homebutton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/imageriplle"
-            android:clickable="true"
-            android:src="@drawable/home"
-            android:outlineAmbientShadowColor="@color/black"
-            ></ImageButton>
-
-        <ImageButton
-            android:id="@+id/savedbutton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="90dp"
-            android:background="@drawable/imageriplle"
-            android:clickable="true"
-            android:src="@drawable/bookmark2"
-            android:elevation="10dp"
-
-            ></ImageButton>
-
-        <ImageButton
-            android:id="@+id/searchbutton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="90dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/imageriplle"
-            android:clickable="true"
-            android:src="@drawable/messages"
-
-            ></ImageButton>
-
-        <ImageButton
-            android:id="@+id/settingbutton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/imageriplle"
-            android:clickable="true"
-            android:src="@drawable/setting2"></ImageButton>
+            tools:visibility="visible">
 
 
-    </RelativeLayout>
+            <ImageButton
+                android:id="@+id/homebutton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/imageriplle"
+                android:clickable="true"
+                android:outlineAmbientShadowColor="@color/black"
+                android:src="@drawable/home"></ImageButton>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            <ImageButton
+                android:id="@+id/savedbutton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="90dp"
+                android:background="@drawable/imageriplle"
+                android:clickable="true"
+                android:elevation="10dp"
+                android:src="@drawable/bookmark2"
+
+                ></ImageButton>
+
+            <ImageButton
+                android:id="@+id/searchbutton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/imageriplle"
+                android:clickable="true"
+                android:src="@drawable/messages"
+
+                ></ImageButton>
+
+            <ImageButton
+                android:id="@+id/settingbutton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="8dp"
+
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/imageriplle"
+                android:clickable="true"
+                android:src="@drawable/setting2"></ImageButton>
 
 
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-45dp"
-        android:backgroundTint="#CA6E3C"
-        android:src="@drawable/i3dcube"
-        app:fabCustomSize="65dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="100dp"
+        </RelativeLayout>
 
-        app:maxImageSize="32dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginBottom="-45dp"
+            android:backgroundTint="#CA6E3C"
+            android:elevation="100dp"
+            android:src="@drawable/i3dcube"
+            app:fabCustomSize="65dp"
+            app:layout_constraintBottom_toTopOf="@+id/navbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:maxImageSize="32dp"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

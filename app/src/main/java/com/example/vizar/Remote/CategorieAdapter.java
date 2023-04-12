@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.vizar.Model.CategorieCard;
+import com.example.vizar.CategorieCard;
 import com.example.vizar.R;
 
 import java.util.List;

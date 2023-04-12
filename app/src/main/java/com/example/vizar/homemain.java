@@ -1,27 +1,27 @@
 package com.example.vizar;
 
-import android.icu.lang.UCharacter;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.vizar.Model.CategorieCard;
-import com.example.vizar.Model.Horizantalrecyclerview;
 import com.example.vizar.Model.product;
+import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.BaseGridConcatAdapter;
+import com.example.vizar.Remote.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,9 +30,17 @@ import java.util.List;
  */
 
     public class homemain extends Fragment {
+        APILink apiLink;
+
+        //Scrolling
+        public static int ProductsCountPerCall = 10;
+        private int Offset;
+        private int LastOffset;
+        private boolean FirstCall;
 
         public RecyclerView parentRecyclerView;
         private RecyclerView.Adapter ParentAdapter;
+        ConcatAdapter concatAdapter;
         ArrayList<Horizantalrecyclerview> parentModelArrayList = new ArrayList<>();
         List<product> productslist = new ArrayList<>();
         private RecyclerView.LayoutManager parentLayoutManager;
@@ -65,6 +73,9 @@ import java.util.List;
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
             }
+
+            apiLink = RetrofitClient.getInstance().create(APILink.class);
+            FirstCall = false;
         }
 
         @Override
@@ -72,24 +83,28 @@ import java.util.List;
                                  Bundle savedInstanceState) {
 
             horizantalrecyclerviewList.add(new Horizantalrecyclerview("Featured categories"));
-            productslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
-            productslist.add(new product("table","$200","good",R.drawable.background));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_diningtable));
-            productslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
-            productslist.add(new product("table","$200","good",R.drawable.background));
-            productslist.add(new product("table","$200","good tale",R.drawable.cat_diningtable));
+
+            /*
+            productslist.add(new product("table",200,"good table"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good table"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good tale"));
+            productslist.add(new product("table",200,"good"));
+            productslist.add(new product("table",200,"good tale"));
+             */
             // Inflate the layout for this fragment
             return inflater.inflate(R.layout.fragment_homemain, container, false);
         }
 
 
         private boolean isLoading;
+
         @Override
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
@@ -100,24 +115,33 @@ import java.util.List;
             Adapter listadapter = new Adapter(productslist);
             footeradapter footer = new footeradapter(R.layout.footer);
 
-            ConcatAdapter concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Top sales"),new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
+            concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
 
             recyclerview.setAdapter(concatAdapter);
-            concatAdapter.notifyDataSetChanged();
+
+            GetFirstProducts();
+
 
             recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
 
-                    if (!recyclerView.canScrollVertically(1)&& !isLoading) {
+                    if (!recyclerView.canScrollVertically(1)&& !isLoading && FirstCall && Offset!=LastOffset) {
                         isLoading =true;
-                        productslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
-                        productslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
-                        productslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
-                        productslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
-                        System.out.println("End");
+                        /*
+                        productslist.add(new product("table",200,"good table"));
+                        productslist.add(new product("table",200,"good tale"));
+                        productslist.add(new product("table",200,"good tale"));
+                        productslist.add(new product("table",200,"good tale"));
+                        */
+
                         concatAdapter.notifyDataSetChanged();
+
+                        System.out.println(concatAdapter.getItemCount());
+                        LastOffset = Offset;
+                        GetProducts();
+
                     }
                     else
                         isLoading = false;
@@ -126,6 +150,42 @@ import java.util.List;
             });
         }
 
+        public void GetFirstProducts(){
+            Call<List<product>> getproducts = apiLink.getproducts(Offset,ProductsCountPerCall);
+            getproducts.enqueue(new Callback<List<product>>() {
+                @Override
+                public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+                    if(response.body() != null){
+                        productslist.addAll(response.body());
+                        concatAdapter.notifyDataSetChanged();
+                        Offset=response.body().size();
+                        LastOffset=response.body().size();
+                        FirstCall = true;
+                        GetProducts();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<List<product>> call, Throwable t) {
+
+                }
+            });
+        }
+
+        public void GetProducts(){
+            Call<List<product>> getproducts = apiLink.getproducts(Offset,ProductsCountPerCall);
+            getproducts.enqueue(new Callback<List<product>>() {
+                @Override
+                public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+                    productslist.addAll(response.body());
+                    Offset+=response.body().size();
+                }
+
+                @Override
+                public void onFailure(Call<List<product>> call, Throwable t) {
+
+                }
+            });
+        }
 
     }

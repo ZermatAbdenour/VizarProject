@@ -1,5 +1,7 @@
 package com.example.vizar;
 
+import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -7,12 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
+
+import io.paperdb.Paper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,15 +77,83 @@ public class settingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext()); // getActivity() for Fragment
+
+        //Switch user
         SwitchCompat UserModeSwitch =  (SwitchCompat)view.findViewById(R.id.UserMode);
-        UserModeSwitch.setChecked(prefs.getBoolean("IsSeller",false));
+        UserModeSwitch.setChecked((boolean)Paper.book().read("IsSeller",false));
         UserModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Paper.book().write("IsSeller",b);
+            }
+        });
 
-                Boolean statusLocked = prefs.edit().putBoolean("IsSeller", b).commit();
+        //Edit Password
+
+        Button EditPasswordButton = (Button) view.findViewById(R.id.EditPasswordButton);
+        EditPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .setCustomAnimations(
+                                    R.anim.slideup,R.anim.slidedown
+//R.anim.fade_in,R.anim.fade_out
+                            )
+                            .replace(R.id.fragmentContainerView3,passwordedit.class,null)
+
+                            .addToBackStack(null)
+                            .commit();
+
+
+                    //animation navbar
+
+                ObjectAnimator animation = ObjectAnimator.ofFloat(getActivity().findViewById(R.id.Navbar), "translationY", 500f);
+                animation.setDuration(500);
+                animation.start();
+
+            }
+        });
+
+        //Edit Password
+
+        Button EditProfileButton = (Button) view.findViewById(R.id.EditProfileButton);
+        EditProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slideup,R.anim.slidedown
+//R.anim.fade_in,R.anim.fade_out
+                        )
+                        .replace(R.id.fragmentContainerView3,profileedit.class,null)
+
+                        .addToBackStack(null)
+                        .commit();
+
+
+                //animation navbar
+
+                ObjectAnimator animation = ObjectAnimator.ofFloat(getActivity().findViewById(R.id.Navbar), "translationY", 500f);
+                animation.setDuration(500);
+                animation.start();
+
+            }
+
+        });
+        //Log out
+
+        Button LogoutButton = (Button) view.findViewById(R.id.LogoutButton);
+        LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Paper.book().write("Authentified",false);
+                Intent i = new Intent(getContext(),MainActivity.class);
+                getContext().startActivity(i);
             }
         });
     }
+
+
 }

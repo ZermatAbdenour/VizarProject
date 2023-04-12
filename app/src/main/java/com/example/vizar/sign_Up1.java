@@ -24,6 +24,7 @@ import com.example.vizar.Model.User;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
+import io.paperdb.Paper;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -210,6 +211,8 @@ public class sign_Up1 extends AppCompatActivity {
                     public void onResponse(Call<User> call, Response<User> response) {
                         if(response.isSuccessful()){
                             Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();
+                            Paper.book().write("Authentified",true);
+                            Paper.book().write("User",response.body());
                             homepage(view);
                         }else{
                             Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();

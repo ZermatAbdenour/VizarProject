@@ -72,16 +72,16 @@ public class savedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        savedproductslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
-        savedproductslist.add(new product("table","$200","good",R.drawable.background));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_diningtable));
-        savedproductslist.add(new product("table","$200","good table",R.drawable.cat_armchairs));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_tvstands));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_cat1));
-        savedproductslist.add(new product("table","$200","good tale",R.drawable.cat_dressers));
+        savedproductslist.add(new product("table",200,"good table"));
+        savedproductslist.add(new product("table",200,"good tale"));
+        savedproductslist.add(new product("table",200,"good tale"));
+        savedproductslist.add(new product("table",200,"good tale"));
+        savedproductslist.add(new product("table",200,"good"));
+        savedproductslist.add(new product("table",200,"good tale"));
+        savedproductslist.add(new product("table",200,"good table"));
+        savedproductslist.add(new product("table",20,"good tale"));
+        savedproductslist.add(new product("table",200,"good tale"));
+        savedproductslist.add(new product("table",200,"good tale"));
 
 
         return inflater.inflate(R.layout.fragment_saved, container, false);

@@ -1,4 +1,4 @@
-package com.example.vizar.Model;
+package com.example.vizar;
 
 public class Horizantalrecyclerview {
     private String Title;

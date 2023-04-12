@@ -1,4 +1,4 @@
-package com.example.vizar.Model;
+package com.example.vizar;
 
 import android.graphics.Bitmap;
 

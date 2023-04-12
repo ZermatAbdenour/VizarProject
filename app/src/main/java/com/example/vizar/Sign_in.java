@@ -1,11 +1,15 @@
 package com.example.vizar;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,6 +22,7 @@ import com.example.vizar.Remote.RetrofitClient;
 
 import java.io.Console;
 
+import io.paperdb.Paper;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -32,7 +37,7 @@ public class Sign_in extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APILink apiLink;
 
-
+    ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +72,9 @@ public class Sign_in extends AppCompatActivity {
 
     public void signin(View view){
 
+
         if(InputsValid())
         {
-
 
             LoginDto loginDto = new LoginDto(email.getText().toString(),Password.getText().toString());
             /*
@@ -102,6 +107,8 @@ public class Sign_in extends AppCompatActivity {
                 public void onResponse(Call<User> call, Response<User> response) {
                     if(response.isSuccessful()){
                         Toast.makeText(Sign_in.this,response.body().id,Toast.LENGTH_SHORT).show();
+                        Paper.book().write("Authentified",true);
+                        Paper.book().write("User",response.body());
                         homepage(view);
                     }
                     else {
