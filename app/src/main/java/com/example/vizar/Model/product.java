@@ -57,6 +57,21 @@ public class product implements Serializable {
         this.description = description;
     }
 
+    public product(String name, String price, String description, String publishdate, int imageview) {
+        this.name = name;
+        this.price = price;
+        this.publishdate = publishdate;
+        this.imageview = imageview;
+    }
+
+    public void setPublishdate(String publishdate) {
+        this.publishdate = publishdate;
+    }
+
+    public String getPublishdate() {
+        return publishdate;
+    }
+
     public String getName() {
         return name;
     }
