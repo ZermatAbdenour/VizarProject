@@ -35,7 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
     private List<product> productsList;
-    APILink apiLink;
+
 
     public Adapter(List<product> productsList){this .productsList = productsList;}
 
@@ -43,7 +43,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product,parent,false);
-        apiLink = RetrofitClient.getInstance().create(APILink.class);
+
         return new ViewHolder(view);
 
     }
@@ -68,14 +68,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         private ImageView imageview;
         private TextView textname;
         private TextView textprice;
-        private TextView textdiscription;
+        private TextView textsellername;
         private View ProductView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageview = itemView.findViewById(R.id.productimage);
             textname = itemView.findViewById(R.id.productname);
             textprice = itemView.findViewById(R.id.price);
-            textdiscription = itemView.findViewById(R.id.description);
+            textsellername = itemView.findViewById(R.id.description);
 
             ProductView = itemView;
 
@@ -84,7 +84,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public void setData(product newproduct) {
             textname.setText(newproduct.name);
             textprice.setText(String.valueOf(newproduct.price));
-            textdiscription.setText("");
+            textsellername.setText(newproduct.sellerName);
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
@@ -100,23 +100,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
 
 
-            // get seller info
 
-            final SellerDto[] sellerdto = {new SellerDto()};
-
-            Call<SellerDto> seller = apiLink.getsellerbyid(newproduct.sellerid);
-            seller.enqueue(new Callback<SellerDto>() {
-                @Override
-                public void onResponse(Call<SellerDto> call, Response<SellerDto> response) {
-                    sellerdto[0] = response.body();
-                    textdiscription.setText(response.body().userName);System.out.println(response.body().userName);
-                }
-
-                @Override
-                public void onFailure(Call<SellerDto> call, Throwable t) {
-                    System.out.println(t);
-                }
-            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -125,7 +109,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     //load view product activity
                     Intent i = new Intent(view.getContext(), ProductView.class);
                     i.putExtra("Product", newproduct);
-                    i.putExtra("Seller", sellerdto[0]);
                     view.getContext().startActivity(i);
 
 

@@ -17,14 +17,22 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.vizar.Model.SellerDto;
 import com.example.vizar.Model.product;
+import com.example.vizar.Remote.APILink;
+import com.example.vizar.Remote.RetrofitClient;
 
 import org.w3c.dom.Text;
 
-public class ProductView extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class ProductView extends AppCompatActivity {
+    APILink apiLink;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        apiLink = RetrofitClient.getInstance().create(APILink.class);
         setContentView(R.layout.activity_product_view);
 
         ToggleButton ReadMoreButton = (ToggleButton) findViewById(R.id.ReadMoreButton);
@@ -47,7 +55,23 @@ public class ProductView extends AppCompatActivity {
         //Load Product Data
         Intent i = getIntent();
         product Product = (product)i.getSerializableExtra("Product");
-        SellerDto seller = (SellerDto)i.getSerializableExtra("Seller");
+
+        //Get Seller Data
+
+        final SellerDto[] sellerdto = {new SellerDto()};
+
+        Call<SellerDto> seller = apiLink.getsellerbyid(Product.sellerid);
+        seller.enqueue(new Callback<SellerDto>() {
+            @Override
+            public void onResponse(Call<SellerDto> call, Response<SellerDto> response) {
+                sellerdto[0] = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<SellerDto> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
 
 
 
@@ -61,7 +85,7 @@ public class ProductView extends AppCompatActivity {
         //sellernqme
 
         TextView Sellername = (TextView)findViewById(R.id.SellerName) ;
-        Sellername.setText(seller.userName);
+        Sellername.setText(Product.sellerName);
         //Description
         TextView Description = (TextView) findViewById(R.id.ProductViewDescription);
         Description.setText(Product.description);
@@ -80,7 +104,6 @@ public class ProductView extends AppCompatActivity {
         });
 
         //Set data
-        System.out.println(Product.height);
         TextView Height = (TextView) findViewById(R.id.ProductViewHeight);
         Height.setText(Float.toString(Product.height));
         TextView Depth = (TextView) findViewById(R.id.ProductViewDepth);

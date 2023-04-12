@@ -71,16 +71,16 @@ public class warehouse extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_armchairs));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_tvstands));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_cat1));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_dressers));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.background));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_diningtable));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_armchairs));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_tvstands));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_cat1));
-        warehouselist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_dressers));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
         return inflater.inflate(R.layout.fragment_warehouse, container, false);
     }
     @Override
@@ -89,7 +89,8 @@ public class warehouse extends Fragment {
         recyclerview = view.findViewById(R.id.warehouse_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerview.setHasFixedSize(true);
-        Adapter adapter = new Adapter(warehouselist,R.layout.product);
+        Adapter adapter = new Adapter(warehouselist);
+
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(adapter,footer);
         recyclerview.setAdapter(concatAdapter);

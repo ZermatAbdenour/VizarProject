@@ -93,6 +93,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ProfileUserName"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:paddingTop="10dp"
@@ -112,6 +113,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ProfileFullName"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:paddingTop="10dp"
@@ -131,6 +133,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ProfileMobile"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:paddingTop="10dp"
@@ -151,6 +154,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/ProfileAdresse"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:paddingTop="10dp"

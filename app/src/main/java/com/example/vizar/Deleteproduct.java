@@ -76,16 +76,16 @@ public class Deleteproduct extends Fragment {
         // Inflate the layout for this fragment
 
 
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_armchairs));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_tvstands));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_cat1));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_dressers));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.background));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_diningtable));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_armchairs));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_tvstands));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_cat1));
-        warehouseproductslist.add(new product("table","$200","Published since: 14/03/2022",R.drawable.cat_dressers));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
         return inflater.inflate(R.layout.fragment_deleteproduct, container, false);
     }
 
@@ -95,7 +95,7 @@ public class Deleteproduct extends Fragment {
         recyclerview = view.findViewById(R.id.delete_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerview.setHasFixedSize(true);
-        Adapter adapter = new Adapter(warehouseproductslist,R.layout.deleteproduct);
+        Adapter adapter = new Adapter(warehouseproductslist);
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(adapter,footer);
         recyclerview.setAdapter(concatAdapter);

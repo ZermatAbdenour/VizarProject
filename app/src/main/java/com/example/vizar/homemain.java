@@ -112,7 +112,7 @@ import retrofit2.Response;
             recyclerview = view.findViewById(R.id.Parent_recyclerView);
             recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
             Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
-            Adapter listadapter = new Adapter(productslist,R.layout.product);
+            Adapter listadapter = new Adapter(productslist);
             footeradapter footer = new footeradapter(R.layout.footer);
 
             concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);

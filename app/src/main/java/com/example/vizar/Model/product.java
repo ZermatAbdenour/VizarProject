@@ -9,6 +9,9 @@ public class product implements Serializable {
     @SerializedName("id")
     @Expose
     public String id;
+    @SerializedName("publishDate")
+    @Expose
+    public String publishDate;
     @SerializedName("name")
     @Expose
     public String name;
@@ -21,6 +24,9 @@ public class product implements Serializable {
     @SerializedName("categorie")
     @Expose
     public String categorie;
+    @SerializedName("sellerName")
+    @Expose
+    public String sellerName;
     @SerializedName("sellerID")
     @Expose
     public String sellerid;
@@ -57,19 +63,9 @@ public class product implements Serializable {
         this.description = description;
     }
 
-    public product(String name, String price, String description, String publishdate, int imageview) {
-        this.name = name;
-        this.price = price;
-        this.publishdate = publishdate;
-        this.imageview = imageview;
-    }
-
-    public void setPublishdate(String publishdate) {
-        this.publishdate = publishdate;
-    }
 
     public String getPublishdate() {
-        return publishdate;
+        return publishDate;
     }
 
     public String getName() {
