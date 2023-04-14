@@ -7,6 +7,7 @@ public class productDto {
     public String Categorie;
     public String SellerName;
     public String SellerID;
+    public String SellerName;
     public String WebLink;
 
     public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume, String imageID, String modelID) {

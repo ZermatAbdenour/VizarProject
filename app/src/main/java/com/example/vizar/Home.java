@@ -17,7 +17,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.vizar.Model.User;
 
 import java.util.ArrayList;
@@ -124,6 +127,11 @@ public class Home extends AppCompatActivity {
 
             }
         });
+
+        //Update the Top Profile Image
+        ImageView UserImage = findViewById(R.id.UserTopImage);
+        User user = (User) Paper.book().read("User");
+        Glide.with(this).load("http://abdenourzermat-001-site1.htempurl.com/images/" + user.imageID).into(UserImage);
 
     }
 

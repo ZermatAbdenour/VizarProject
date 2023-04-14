@@ -35,4 +35,7 @@ public class User {
     @SerializedName("savedProducts")
     @Expose
     public String[] savedProducts;
+    @SerializedName("imageID")
+    @Expose
+    public String imageID;
 }

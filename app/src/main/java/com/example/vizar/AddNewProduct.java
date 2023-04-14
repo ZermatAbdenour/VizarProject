@@ -1,5 +1,11 @@
 package com.example.vizar;
 
+<<<<<<< Updated upstream
+=======
+import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.content.Context;
+>>>>>>> Stashed changes
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -14,6 +20,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -240,7 +247,6 @@ public class AddNewProduct extends Fragment {
                 else ShowSnakeBar("some informations are missing");
             }
         });
-
     }
 
 
@@ -397,9 +403,20 @@ public class AddNewProduct extends Fragment {
     private void ShowSnakeBar(String Text){
         Snackbar snackbar = Snackbar
                 .make((CoordinatorLayout)getActivity().findViewById(R.id.HomeSnackBar), Text, Snackbar.LENGTH_LONG);
-
         View sbView = snackbar.getView();
         sbView.setBackgroundColor(Color.BLACK);
         snackbar.show();
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        //Exit Animation
+        ObjectAnimator animation = ObjectAnimator.ofFloat(getActivity().findViewById(R.id.Navbar), "translationY", 0f);
+        animation.setDuration(500);
+        animation.start();
     }
 }

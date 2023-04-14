@@ -4,6 +4,8 @@ import com.example.vizar.Model.CreateUserDto;
 import com.example.vizar.Model.GUIDDto;
 import com.example.vizar.Model.LoginDto;
 import com.example.vizar.Model.SellerDto;
+import com.example.vizar.Model.UpdatePasswordDto;
+import com.example.vizar.Model.UpdateProfileDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Model.productDto;
@@ -17,6 +19,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -30,6 +33,15 @@ public interface APILink {
     @POST("users/login")
     public Call<User> loginuser(@Body LoginDto user);
 
+    @Multipart
+    @PUT("users/update/image/{id}")
+    public Call<User> setProfileImage(@Path("id")String id,@Part MultipartBody.Part file);
+
+    @PUT("users/update/profile/{id}")
+    public Call<User> UpdateProfile(@Path("id")String id, @Body UpdateProfileDto updateDto);
+
+    @PUT("users/update/password/{id}")
+    public Call<User> UpdatePassword(@Path("id") String id, @Body UpdatePasswordDto updateDto);
 
     //Products Functions
 

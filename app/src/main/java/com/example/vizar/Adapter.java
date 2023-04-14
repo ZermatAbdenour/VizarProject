@@ -100,10 +100,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     .dontTransform()
                     .priority(Priority.IMMEDIATE);
 
-            RequestBuilder<Drawable> requestBuilder= Glide.with(ProductView)
-                    .asDrawable().sizeMultiplier(0.05f);
 
-            Glide.with(ProductView).load("http://abdenourzermat-001-site1.htempurl.com/images/" + newproduct.imageid).error(Glide.with(ProductView).load("http://abdenourzermat-001-site1.htempurl.com/images/" + newproduct.imageid).transition(DrawableTransitionOptions.withCrossFade()).apply(requestOptions).into(imageview)).transition(DrawableTransitionOptions.withCrossFade()).apply(requestOptions).into(imageview);
+            Glide.with(ProductView).load("http://abdenourzermat-001-site1.htempurl.com/images/" + newproduct.imageid).transition(DrawableTransitionOptions.withCrossFade()).apply(requestOptions).into(imageview);
 
 
 

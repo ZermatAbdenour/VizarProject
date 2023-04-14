@@ -1,5 +1,6 @@
 package com.example.vizar;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -80,8 +81,16 @@ public class HomeMainSellerMode extends Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainerView3,AddNewProduct.class,null)
                         .setReorderingAllowed(true)
+                        .setCustomAnimations(
+                                R.anim.slideup,R.anim.slidedown
+                        )
                         .addToBackStack(null)
                         .commit();
+
+                //animation navbar
+                ObjectAnimator animation = ObjectAnimator.ofFloat(getActivity().findViewById(R.id.Navbar), "translationY", 500f);
+                animation.setDuration(500);
+                animation.start();
             }
         });
 
