@@ -5,15 +5,17 @@ public class productDto {
     public float Price;
     public String Description;
     public String Categorie;
+    public String SellerName;
     public String SellerID;
     public String WebLink;
 
-    public productDto(String name, float price, String description, String categorie,String sellerID, String webLink, float width, float height, float depth, float weight, float volume, String imageID, String modelID) {
+    public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume, String imageID, String modelID) {
         Name = name;
         Price = price;
         Description = description;
         Categorie = categorie;
         SellerID = sellerID;
+        SellerName = sellerName;
         WebLink = webLink;
         Width = width;
         Height = height;

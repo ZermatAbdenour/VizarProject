@@ -1,31 +1,9 @@
 package com.example.vizar;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.media.Image;
-import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,15 +16,24 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.example.vizar.Model.GUIDDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Model.productDto;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
-import com.google.android.material.slider.Slider;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -54,9 +41,7 @@ import id.zelory.compressor.Compressor;
 import io.paperdb.Paper;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -294,7 +279,8 @@ public class AddNewProduct extends Fragment {
 
 
                 //Upload Model After image Uploaded
-                UploadModel();
+                //UploadModel();
+                CreateProduct();
             }
 
             @Override
@@ -332,7 +318,7 @@ public class AddNewProduct extends Fragment {
 
             @Override
             public void onFailure(Call<GUIDDto> call, Throwable t) {
-
+                System.out.println("ls;;oasdipoasdiaopsdoaidoasid "+t);
             }
         });
     }
@@ -345,6 +331,7 @@ public class AddNewProduct extends Fragment {
                 DescriptionInputField.getText().toString(),
                 CategorieDropDown.getText().toString(),
                 SellerAccount.id,
+                SellerAccount.userName,
                 WebLinkInputField.getText().toString(),
                 Float.valueOf(WidthInputField.getText().toString()),
                 Float.valueOf(HeightInputField.getText().toString()),

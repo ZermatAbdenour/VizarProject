@@ -1,6 +1,9 @@
 package com.example.vizar;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,15 +12,18 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
-import com.example.vizar.Remote.BaseGridConcatAdapter;
+import com.example.vizar.Remote.APILink;
+import com.example.vizar.Remote.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +40,8 @@ public class Deleteproduct extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private APILink apiLink;
+    private User user;
 
     public Deleteproduct() {
         // Required empty public constructor
@@ -74,32 +82,48 @@ public class Deleteproduct extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        apiLink = RetrofitClient.getInstance().create(APILink.class);
+        user = Paper.book().read("User");
+/*
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+        */
+        Call<List<product>> getuserproducts = apiLink.getuserproducts(user.id);
 
+        getuserproducts.enqueue(new Callback<List<product>>() {
+            @Override
+            public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+                warehouseproductslist.addAll(response.body());
+                adapter.notifyDataSetChanged();
+            }
 
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouseproductslist.add(new product("table",200,"Published since: 14/03/2022"));
+            @Override
+            public void onFailure(Call<List<product>> call, Throwable t) {
+
+            }
+        });
         return inflater.inflate(R.layout.fragment_deleteproduct, container, false);
     }
-
+    Adapter adapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerview = view.findViewById(R.id.delete_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerview.setHasFixedSize(true);
-        Adapter adapter = new Adapter(warehouseproductslist);
+         adapter = new Adapter(warehouseproductslist,R.layout.deleteproduct,true);
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(adapter,footer);
         recyclerview.setAdapter(concatAdapter);
-        adapter.notifyDataSetChanged();
+
 
     }
 }

@@ -1,7 +1,5 @@
 package com.example.vizar.Remote;
 
-import android.icu.text.CaseMap;
-
 import com.example.vizar.Model.CreateUserDto;
 import com.example.vizar.Model.GUIDDto;
 import com.example.vizar.Model.LoginDto;
@@ -10,14 +8,12 @@ import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Model.productDto;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
-import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -54,5 +50,21 @@ public interface APILink {
 
     @GET("users/seller/{id}")
     public Call<SellerDto> getsellerbyid(@Path("id")String id );
+
+    @GET("users/savedproducts/{id}")
+    public Call<List<product>> getsavedproducts(@Path("id")String id);
+
+    @GET("users/userproducts/{id}")
+    public Call<List<product>> getuserproducts(@Path("id")String id);
+
+    @DELETE("products/{id}")
+    public Call<Void> deleteproduct(@Path("id")String id);
+
+
+    @GET("users/savedproducts/stat/{id}")
+    public Call<Boolean> getproductsavestate(@Path("id")String id, @Query("productid")String productid);
+
+    @POST("users/savedproducts/stat/{id}")
+    public Call<Void> setproductsavestate(@Path("id")String id,@Query("productid")String productid,@Query("savestat")Boolean savestat);
 
 }

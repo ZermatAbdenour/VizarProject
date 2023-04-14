@@ -1,6 +1,9 @@
 package com.example.vizar;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,15 +12,19 @@ import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
+import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
+import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.BaseGridConcatAdapter;
+import com.example.vizar.Remote.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.paperdb.Paper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,11 +74,17 @@ public class savedFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
+        private User user;
 
+
+        private APILink apiLink;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        apiLink = RetrofitClient.getInstance().create(APILink.class);
+        /*
         savedproductslist.add(new product("table",200,"good table"));
         savedproductslist.add(new product("table",200,"good tale"));
         savedproductslist.add(new product("table",200,"good tale"));
@@ -82,22 +95,63 @@ public class savedFragment extends Fragment {
         savedproductslist.add(new product("table",20,"good tale"));
         savedproductslist.add(new product("table",200,"good tale"));
         savedproductslist.add(new product("table",200,"good tale"));
+        */
+
+         user = Paper.book().read("User");
+
+
+      /* Call<List<product>> getsavedproducts = apiLink.getsavedproducts(user.id);
+        getsavedproducts.enqueue(new Callback<List<product>>() {
+            @Override
+            public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+                savedproductslist.addAll(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<product>> call, Throwable t) {
+
+            }
+        });*/
 
 
         return inflater.inflate(R.layout.fragment_saved, container, false);
     }
-
+    Adapter adapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerview = view.findViewById(R.id.saved_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerview.setHasFixedSize(true);
-        Adapter adapter = new Adapter(savedproductslist);
+         adapter = new Adapter(savedproductslist,R.layout.product,false);
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(new BaseGridConcatAdapter(getContext(),adapter,2,"Saved Products"),footer);
         recyclerview.setAdapter(concatAdapter);
-        adapter.notifyDataSetChanged();
 
+
+    }
+
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Call<List<product>> getsavedproducts = apiLink.getsavedproducts(user.id);
+             getsavedproducts.enqueue(new Callback<List<product>>() {
+            @Override
+            public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+                savedproductslist.clear();
+                savedproductslist.addAll(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<product>> call, Throwable t) {
+
+            }
+        });
     }
 }

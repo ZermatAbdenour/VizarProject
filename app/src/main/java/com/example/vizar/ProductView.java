@@ -1,33 +1,38 @@
 package com.example.vizar;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.vizar.Model.SellerDto;
+import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
-import org.w3c.dom.Text;
-
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ProductView extends AppCompatActivity {
     APILink apiLink;
+    User user;
+    private ImageButton savebutton;
+    private boolean savest;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,71 @@ public class ProductView extends AppCompatActivity {
         //Load Product Data
         Intent i = getIntent();
         product Product = (product)i.getSerializableExtra("Product");
+
+        //SaveButton
+        savebutton=findViewById(R.id.savebutton);
+        user = Paper.book().read("User");
+
+        Call<Boolean> savestat = apiLink.getproductsavestate(user.id,Product.id);
+                savestat.enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                        savest = response.body();
+                        if(response.body())
+                            savebutton.setImageResource(R.drawable.unbook);
+                        else
+                            savebutton.setImageResource(R.drawable.bookmark);
+                    }
+
+                    @Override
+                    public void onFailure(Call<Boolean> call, Throwable t) {
+
+                    }
+                });
+
+        savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(savest){
+
+                    Call<Void> setsavestattofalse = apiLink.setproductsavestate(user.id, Product.id,false);
+                            savebutton.setImageResource(R.drawable.bookmark);
+                            savest = !savest;
+                    setsavestattofalse.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
+
+                }else
+                {
+                    Call<Void> setsavestattotrue = apiLink.setproductsavestate(user.id, Product.id,true);
+                            savebutton.setImageResource(R.drawable.unbook);
+                            savest = !savest;
+                    setsavestattotrue.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(Call<Void> call, Response<Void> response) {
+                        }
+
+                        @Override
+                        public void onFailure(Call<Void> call, Throwable t) {
+
+                        }
+                    });
+
+
+                }
+
+            }
+        });
+
+
+
 
         //Get Seller Data
 

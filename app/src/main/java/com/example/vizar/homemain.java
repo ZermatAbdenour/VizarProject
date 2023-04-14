@@ -1,15 +1,14 @@
 package com.example.vizar;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
@@ -112,7 +111,7 @@ import retrofit2.Response;
             recyclerview = view.findViewById(R.id.Parent_recyclerView);
             recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
             Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
-            Adapter listadapter = new Adapter(productslist);
+            Adapter listadapter = new Adapter(productslist,R.layout.product,false);
             footeradapter footer = new footeradapter(R.layout.footer);
 
             concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
@@ -136,7 +135,8 @@ import retrofit2.Response;
                         productslist.add(new product("table",200,"good tale"));
                         */
 
-                        concatAdapter.notifyDataSetChanged();
+                        //concatAdapter.notifyDataSetChanged();
+                        concatAdapter.notifyItemRangeInserted(Offset,ProductsCountPerCall);
 
                         System.out.println(concatAdapter.getItemCount());
                         LastOffset = Offset;
@@ -158,6 +158,7 @@ import retrofit2.Response;
                     if(response.body() != null){
                         productslist.addAll(response.body());
                         concatAdapter.notifyDataSetChanged();
+
                         Offset=response.body().size();
                         LastOffset=response.body().size();
                         FirstCall = true;
