@@ -89,9 +89,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             textname.setText(newproduct.name);
             textprice.setText(String.valueOf(newproduct.price));
             if(!showdate)
-            textsellername.setText(newproduct.sellerName);
+                textsellername.setText(newproduct.sellerName);
             else
-            textsellername.setText(newproduct.publishDate);
+                textsellername.setText(newproduct.publishDate);
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)

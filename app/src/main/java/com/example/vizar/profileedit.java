@@ -1,6 +1,7 @@
 package com.example.vizar;
 
 import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,6 +10,7 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -32,6 +34,8 @@ import com.example.vizar.Model.UpdateProfileDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
+import com.fredporciuncula.phonemoji.PhonemojiTextInputEditText;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -74,7 +78,8 @@ public class profileedit extends Fragment {
     TextInputLayout MobileLayout;
     TextInputEditText Adresse;
     TextInputLayout AdresseLayout;
-
+    ImageView ProfileImage;
+    ImageView UserImage;
     public profileedit() {
         // Required empty public constructor
     }
@@ -130,11 +135,16 @@ public class profileedit extends Fragment {
         MobileLayout =  getView().findViewById(R.id.ProfileMobileLayout);
         Adresse =  getView().findViewById(R.id.ProfileAdresse);
         AdresseLayout =  getView().findViewById(R.id.ProfileAdresseLayout);
+        ProfileImage = view.findViewById(R.id.ProfileUserImage);
+        UserImage = getActivity().findViewById(R.id.UserTopImage);
 
         //Set Old Values
         User user = Paper.book().read("User");
         UserName.setText(user.userName);
-
+        FullName.setText(user.fullName);
+        Mobile.setText(user.mobile);
+        Adresse.setText(user.adresse);
+        Glide.with(view).load("http://abdenourzermat-001-site1.htempurl.com/images/" + user.imageID).into(ProfileImage);
 
         //Photo Picker ActivityResultLauncher
         ActivityResultLauncher<PickVisualMediaRequest> pickMedia =
@@ -144,12 +154,13 @@ public class profileedit extends Fragment {
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
                         ImageUri = uri;
+                        Glide.with(view).load(ImageUri).transition(DrawableTransitionOptions.withCrossFade()).into(ProfileImage);
                     } else {
                         Log.d("PhotoPicker", "No media selected");
                     }
                 });
         //Photo Picker Listener
-        ImageView ProfileImage = view.findViewById(R.id.ProfileUserImage);
+
         ProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,6 +178,8 @@ public class profileedit extends Fragment {
             public void onClick(View view) {
                 if (ImageUri != null)
                     UploadImage();
+
+                System.out.println(CheckInputs());
                 if(CheckInputs())
                     UpdateProfile();
             }
@@ -211,7 +224,7 @@ public class profileedit extends Fragment {
                 finalCompressedImageFile.delete();
 
                 //update the UserTOPImage
-                ImageView UserImage = getActivity().findViewById(R.id.UserTopImage);
+
 
                 Glide.with(getActivity()).load("http://abdenourzermat-001-site1.htempurl.com/images/" + response.body().imageID).transition(DrawableTransitionOptions.withCrossFade()).into(UserImage);
             }
@@ -233,7 +246,7 @@ public class profileedit extends Fragment {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Paper.book().write("User",response.body());
-                System.out.println("Profile Updated");
+                ShowSnakeBar("Profile Updated");
             }
 
             @Override
@@ -302,13 +315,16 @@ public class profileedit extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(Mobile.getText().toString().length()>0 && Mobile.getText().toString().length()<8){
+                /*
+                if(Mobile.getText().toString().replace(" ","").length() - Integer.toString(Mobile.getInitialCountryCode()).length()-1 >0 && Mobile.getText().toString().replace(" ","").length() - Integer.toString(Mobile.getInitialCountryCode()).length()-1<8){
                     MobileLayout.setErrorEnabled(true);
-                    MobileLayout.setError("Enter 8 character at minimum");
+                    MobileLayout.setError("Not a valide mobile number");
                 }
                 else {
                     MobileLayout.setErrorEnabled(false);
                 }
+
+                 */
             }
 
             @Override
@@ -349,16 +365,27 @@ public class profileedit extends Fragment {
         if(FullName.getText().toString().length() > 0 && FullName.getText().toString().length()<8){
             valide = false;
         }
-        if(Mobile.getText().toString().length()>0 && Mobile.getText().toString().length()<8){
+    /*
+        if(Mobile.getText().toString().replace(" ","").length() - Integer.toString(Mobile.getInitialCountryCode()).length()-1 >0 && Mobile.getText().toString().length()<8){
             valide = false;
         }
-        if(Mobile.getText().toString().length()>0 && Adresse.getText().toString().length()<8){
+
+     */
+
+        if(Adresse.getText().toString().length()>0 && Adresse.getText().toString().length()<8){
             valide = false;
         }
 
         return valide;
     }
+    private void ShowSnakeBar(String Text){
+        Snackbar snackbar = Snackbar
+                .make((CoordinatorLayout)getActivity().findViewById(R.id.HomeSnackBar), Text, Snackbar.LENGTH_LONG);
+        View sbView = snackbar.getView();
+        sbView.setBackgroundColor(Color.BLACK);
+        snackbar.show();
 
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();

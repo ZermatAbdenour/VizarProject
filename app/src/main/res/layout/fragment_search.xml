@@ -14,43 +14,49 @@
         tools:layout_editor_absoluteY="103dp">
 
 
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="291dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/searchbar"
-            android:ems="10"
-            android:hint="Search"
-            android:inputType="textPersonName"
-            android:paddingLeft="10dp"
-            android:textColorHint="#BFBFBF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.231"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/FilterButton"
-            android:layout_width="39dp"
-            android:layout_height="40dp"
-            android:background="#CA6E3C"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName">
-
-        </ImageButton>
-
-        <ImageView
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:src="@drawable/filtersbutton"
-            app:layout_constraintBottom_toBottomOf="@+id/FilterButton"
-            app:layout_constraintEnd_toEndOf="@+id/FilterButton"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toTopOf="@+id/FilterButton"
-            android:clickable="false"
-            ></ImageView>
+            android:layout_marginTop="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="290dp"
+                android:layout_height="40dp"
+                android:background="@drawable/searchbar"
+                android:ems="10"
+                android:hint="Search"
+                android:inputType="textAutoComplete"
+                android:paddingLeft="10dp"
+                android:textColorHint="#BFBFBF"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/FilterButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_toEndOf="@+id/editTextTextPersonName"
+                android:background="#CA6E3C"
+                app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName">
+
+            </ImageButton>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="6dp"
+
+                android:layout_toEndOf="@+id/editTextTextPersonName"
+                android:background="#00FFFFFF"
+                android:clickable="false"
+                android:src="@drawable/filtersbutton" />
+        </RelativeLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

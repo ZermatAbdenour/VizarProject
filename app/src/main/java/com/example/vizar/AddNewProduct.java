@@ -1,11 +1,10 @@
 package com.example.vizar;
 
-<<<<<<< Updated upstream
-=======
+
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
->>>>>>> Stashed changes
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;

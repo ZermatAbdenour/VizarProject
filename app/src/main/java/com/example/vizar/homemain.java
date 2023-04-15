@@ -40,6 +40,7 @@ import retrofit2.Response;
         public RecyclerView parentRecyclerView;
         private RecyclerView.Adapter ParentAdapter;
         ConcatAdapter concatAdapter;
+        Adapter listadapter;
         ArrayList<Horizantalrecyclerview> parentModelArrayList = new ArrayList<>();
         List<product> productslist = new ArrayList<>();
         private RecyclerView.LayoutManager parentLayoutManager;
@@ -83,8 +84,8 @@ import retrofit2.Response;
 
             horizantalrecyclerviewList.add(new Horizantalrecyclerview("Featured categories"));
 
+
             /*
-            productslist.add(new product("table",200,"good table"));
             productslist.add(new product("table",200,"good tale"));
             productslist.add(new product("table",200,"good tale"));
             productslist.add(new product("table",200,"good tale"));
@@ -111,7 +112,7 @@ import retrofit2.Response;
             recyclerview = view.findViewById(R.id.Parent_recyclerView);
             recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
             Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
-            Adapter listadapter = new Adapter(productslist,R.layout.product,false);
+            listadapter = new Adapter(productslist,R.layout.product,false);
             footeradapter footer = new footeradapter(R.layout.footer);
 
             concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
@@ -136,7 +137,7 @@ import retrofit2.Response;
                         */
 
                         //concatAdapter.notifyDataSetChanged();
-                        concatAdapter.notifyItemRangeInserted(Offset,ProductsCountPerCall);
+                        listadapter.notifyItemRangeInserted(Offset,ProductsCountPerCall);
 
                         System.out.println(concatAdapter.getItemCount());
                         LastOffset = Offset;
@@ -157,7 +158,8 @@ import retrofit2.Response;
                 public void onResponse(Call<List<product>> call, Response<List<product>> response) {
                     if(response.body() != null){
                         productslist.addAll(response.body());
-                        concatAdapter.notifyDataSetChanged();
+
+                        listadapter.notifyItemRangeInserted(1,10);
 
                         Offset=response.body().size();
                         LastOffset=response.body().size();
