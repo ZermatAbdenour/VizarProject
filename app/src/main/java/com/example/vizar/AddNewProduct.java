@@ -3,6 +3,7 @@ package com.example.vizar;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -105,6 +107,7 @@ public class AddNewProduct extends Fragment {
 
     private String ImageID;
     private String ModelID;
+    private String ModelExtension;
 
     public static AddNewProduct newInstance(String param1, String param2) {
         AddNewProduct fragment = new AddNewProduct();
@@ -284,8 +287,8 @@ public class AddNewProduct extends Fragment {
 
 
                 //Upload Model After image Uploaded
-                //UploadModel();
-                CreateProduct();
+                UploadModel();
+
             }
 
             @Override
@@ -298,7 +301,9 @@ public class AddNewProduct extends Fragment {
     }
     private void UploadModel(){
         //Upload Model and Save ModelID
-        File modelfile = new File(FileHelper.getRealPathFromURI(getContext(),ModelUri));
+        String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
+        File modelfile = new File(ModelPath);
+        ModelExtension = GetFileExtension(ModelPath);
 
         RequestBody requestModelFile =
                 RequestBody.create(
@@ -344,7 +349,8 @@ public class AddNewProduct extends Fragment {
                 Float.valueOf(WeightInputField.getText().toString()),
                 Float.valueOf(VolumeInputField.getText().toString()),
                 ImageID,
-                ModelID
+                ModelID,
+                ModelExtension
                 );
 
         Call<product> UploadProduct = apiLink.uploadproduct(productdto);
@@ -417,5 +423,12 @@ public class AddNewProduct extends Fragment {
         ObjectAnimator animation = ObjectAnimator.ofFloat(getActivity().findViewById(R.id.Navbar), "translationY", 0f);
         animation.setDuration(500);
         animation.start();
+    }
+
+    public String GetFileExtension(String filePath){
+        int strLength = filePath.lastIndexOf(".");
+        if(strLength > 0)
+            return filePath.substring(strLength).toLowerCase();
+        return null;
     }
 }
