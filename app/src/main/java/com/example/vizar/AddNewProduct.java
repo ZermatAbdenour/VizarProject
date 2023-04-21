@@ -2,9 +2,6 @@ package com.example.vizar;
 
 
 import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Context;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,14 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,7 +29,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.vizar.Model.GUIDDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Model.productDto;
@@ -194,7 +189,7 @@ public class AddNewProduct extends Fragment {
         //File Picker ActivityResultLauncher
         ActivityResultLauncher<Intent> pickModel = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),uri->{
-                    if (uri != null) {
+                    if (uri.getData() != null) {
                         Log.d("filePicker", "Selected URI: " + uri);
                         ModelUri =uri.getData().getData();
 
@@ -243,7 +238,7 @@ public class AddNewProduct extends Fragment {
                 System.out.println(ValidateInputs());
                 if(ValidateInputs()){
                     //Upload Image and Save ImageID
-                    UploadImage();
+                    UploadProduct();
                     ShowSnakeBar("Publishing your product ...");
                 }
                 else ShowSnakeBar("some informations are missing");
@@ -251,7 +246,7 @@ public class AddNewProduct extends Fragment {
         });
     }
 
-
+    /*
     private void UploadImage(){
         File imagefile = new File(FileHelper.getRealPathFromURI(getContext(),ImageUri));
 
@@ -368,6 +363,110 @@ public class AddNewProduct extends Fragment {
             }
         });
     }
+
+     */
+    private void UploadProduct(){
+        //image bodyPart
+        File imagefile = new File(FileHelper.getRealPathFromURI(getContext(),ImageUri));
+
+        File CompressedImageFile;
+        try {
+            CompressedImageFile = File.createTempFile("TempCompressedImage", ".png",getActivity().getApplicationContext().getCacheDir());
+            CompressedImageFile = new Compressor(getContext()).setMaxHeight(400).setMaxWidth(500).compressToFile(imagefile);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        RequestBody requestFile =
+                RequestBody.create(
+                        MediaType.parse(getContext().getContentResolver().getType(ImageUri)),
+                        CompressedImageFile
+                );
+        MultipartBody.Part imagebody =
+                MultipartBody.Part.createFormData("ImageFile", CompressedImageFile.getName(), requestFile);
+
+        //model Body part
+
+        //Upload Model and Save ModelID
+        String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
+        File modelfile = new File(ModelPath);
+        ModelExtension = GetFileExtension(ModelPath);
+
+        RequestBody requestModelFile =
+                RequestBody.create(
+                        MediaType.parse(getContext().getContentResolver().getType(ModelUri)),
+                        modelfile
+                );
+        MultipartBody.Part modelbody =
+                MultipartBody.Part.createFormData("ModelFile", modelfile.getName(), requestModelFile);
+
+
+
+        User SellerAccount = Paper.book().read("User");
+        productDto productdto = new productDto(
+                NameInputField.getText().toString(),
+                Float.valueOf(PriceInputField.getText().toString()),
+                DescriptionInputField.getText().toString(),
+                CategorieDropDown.getText().toString(),
+                SellerAccount.id,
+                SellerAccount.userName,
+                WebLinkInputField.getText().toString(),
+                Float.valueOf(WidthInputField.getText().toString()),
+                Float.valueOf(HeightInputField.getText().toString()),
+                Float.valueOf(DepthInputField.getText().toString()),
+                Float.valueOf(WeightInputField.getText().toString()),
+                Float.valueOf(VolumeInputField.getText().toString()),
+                ModelExtension
+        );
+
+        RequestBody Name = RequestBody.create(MediaType.parse("text/plain"), productdto.Name);
+        RequestBody Price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Price));
+        RequestBody Description = RequestBody.create(MediaType.parse("text/plain"), productdto.Description);
+        RequestBody Categorie = RequestBody.create(MediaType.parse("text/plain"), productdto.Categorie);
+        RequestBody SellerID = RequestBody.create(MediaType.parse("text/plain"), productdto.SellerID);
+        RequestBody SellerName = RequestBody.create(MediaType.parse("text/plain"), productdto.SellerName);
+        RequestBody WebLink = RequestBody.create(MediaType.parse("text/plain"), productdto.WebLink);
+        RequestBody Width = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Width));
+        RequestBody Height = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Height));
+        RequestBody Depth = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Depth));
+        RequestBody Weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Weight));
+        RequestBody Volume = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Volume));
+        RequestBody ModelExtension = RequestBody.create(MediaType.parse("text/plain"), productdto.ModelExtension);
+
+
+        Call<Void> UploadProduct = apiLink.uploadProduct(
+                imagebody,
+                modelbody,
+                Name,
+                Price,
+                Description,
+                Categorie,
+                SellerID,
+                SellerName,
+                WebLink,
+                Width,
+                Height,
+                Depth,
+                Weight,
+                Volume,
+                ModelExtension);
+        UploadProduct.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                    System.out.println(response.message());
+                    ShowSnakeBar("Your product has been uploaded");
+
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println(t);
+            }
+        });
+    }
+
 
     public boolean ValidateInputs(){
         if(isEmpty(NameInputField))

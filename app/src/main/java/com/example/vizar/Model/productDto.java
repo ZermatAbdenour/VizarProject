@@ -13,12 +13,10 @@ public class productDto {
     public float Depth;
     public float Weight;
     public float Volume;
-    public String ImageID;
-    public String ModelID;
     public String ModelExtension;
 
 
-    public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume, String imageID, String modelID,String modelExtension) {
+    public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume,String modelExtension) {
         Name = name;
         Price = price;
         Description = description;
@@ -31,8 +29,6 @@ public class productDto {
         Depth = depth;
         Weight = weight;
         Volume = volume;
-        ImageID = imageID;
-        ModelID = modelID;
         ModelExtension = modelExtension;
     }
 }

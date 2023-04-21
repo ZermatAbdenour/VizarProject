@@ -41,6 +41,9 @@ import retrofit2.Response;
         private RecyclerView.Adapter ParentAdapter;
         ConcatAdapter concatAdapter;
         Adapter listadapter;
+        Adapter_1 outeradapter;
+        footeradapter footer;
+
         ArrayList<Horizantalrecyclerview> parentModelArrayList = new ArrayList<>();
         List<product> productslist = new ArrayList<>();
         private RecyclerView.LayoutManager parentLayoutManager;
@@ -73,31 +76,25 @@ import retrofit2.Response;
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
             }
-
             apiLink = RetrofitClient.getInstance().create(APILink.class);
             FirstCall = false;
+
+            horizantalrecyclerviewList.add(new Horizantalrecyclerview("Featured categories"));
+
+            listadapter = new Adapter(productslist,R.layout.product,false);
+            outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
+            footer = new footeradapter(R.layout.footer);
+            concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
+
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            horizantalrecyclerviewList.add(new Horizantalrecyclerview("Featured categories"));
+            //Set ButtomNav
+            Home.ButtomNavHome(this);
 
-
-            /*
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good table"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good tale"));
-            productslist.add(new product("table",200,"good"));
-            productslist.add(new product("table",200,"good tale"));
-             */
             // Inflate the layout for this fragment
             return inflater.inflate(R.layout.fragment_homemain, container, false);
         }
@@ -109,46 +106,38 @@ import retrofit2.Response;
         public void onViewCreated(View view, Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
 
-            recyclerview = view.findViewById(R.id.Parent_recyclerView);
-            recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
-            Adapter_1 outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
-            listadapter = new Adapter(productslist,R.layout.product,false);
-            footeradapter footer = new footeradapter(R.layout.footer);
 
-            concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
+                recyclerview = getActivity().findViewById(R.id.Parent_recyclerView);
+                recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
 
-            recyclerview.setAdapter(concatAdapter);
+                recyclerview.setAdapter(concatAdapter);
 
-            GetFirstProducts();
+            if(productslist.size()==0){
+                GetFirstProducts();
 
 
-            recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
-                @Override
-                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                    super.onScrollStateChanged(recyclerView, newState);
+                recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
 
-                    if (!recyclerView.canScrollVertically(1)&& !isLoading && FirstCall && Offset!=LastOffset) {
-                        isLoading =true;
-                        /*
-                        productslist.add(new product("table",200,"good table"));
-                        productslist.add(new product("table",200,"good tale"));
-                        productslist.add(new product("table",200,"good tale"));
-                        productslist.add(new product("table",200,"good tale"));
-                        */
+                        if (!recyclerView.canScrollVertically(1)&& !isLoading && FirstCall && Offset!=LastOffset) {
+                            isLoading =true;
 
-                        //concatAdapter.notifyDataSetChanged();
-                        listadapter.notifyItemRangeInserted(Offset,ProductsCountPerCall);
+                            //concatAdapter.notifyDataSetChanged();
+                            listadapter.notifyItemRangeInserted(Offset,ProductsCountPerCall);
 
-                        System.out.println(concatAdapter.getItemCount());
-                        LastOffset = Offset;
-                        GetProducts();
+                            System.out.println(concatAdapter.getItemCount());
+                            LastOffset = Offset;
+                            GetProducts();
+
+                        }
+                        else
+                            isLoading = false;
 
                     }
-                    else
-                        isLoading = false;
-
-                }
-            });
+                });
+            }
         }
 
         public void GetFirstProducts(){

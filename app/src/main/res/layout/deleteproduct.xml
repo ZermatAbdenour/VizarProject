@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
+    android:layout_height="145dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
@@ -17,7 +17,7 @@
         android:elevation="10dp"
         app:cardBackgroundColor="#FEFEFE"
         app:cardCornerRadius="7dp"
-        app:cardElevation="10dp">
+        app:cardElevation="5dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="148dp"
@@ -53,6 +53,7 @@
             android:layout_gravity="right"
             android:layout_marginHorizontal="17dp"
             android:layout_marginTop="95dp"
+            android:gravity="center"
             android:text="Delete"
             android:textColor="@color/white"
             android:textSize="16sp"

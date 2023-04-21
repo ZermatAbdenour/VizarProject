@@ -81,21 +81,13 @@ public class savedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        //Set ButtomNav
+        Home.ButtomNavSaved(this);
+
         // Inflate the layout for this fragment
 
         apiLink = RetrofitClient.getInstance().create(APILink.class);
-        /*
-        savedproductslist.add(new product("table",200,"good table"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        savedproductslist.add(new product("table",200,"good"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        savedproductslist.add(new product("table",200,"good table"));
-        savedproductslist.add(new product("table",20,"good tale"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        savedproductslist.add(new product("table",200,"good tale"));
-        */
 
          user = Paper.book().read("User");
 

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import io.paperdb.Paper;
 
@@ -70,6 +71,9 @@ public class settingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Set ButtomNav
+        Home.ButtomNavSettings(this);
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
@@ -78,8 +82,10 @@ public class settingsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         //Switch user
-        SwitchCompat UserModeSwitch =  (SwitchCompat)view.findViewById(R.id.UserMode);
+        Switch UserModeSwitch =  view.findViewById(R.id.UserMode);
         UserModeSwitch.setChecked((boolean)Paper.book().read("IsSeller",false));
         UserModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -150,10 +156,9 @@ public class settingsFragment extends Fragment {
             public void onClick(View view) {
                 Paper.book().write("Authentified",false);
                 Intent i = new Intent(getContext(),MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 getContext().startActivity(i);
             }
         });
     }
-
-
 }

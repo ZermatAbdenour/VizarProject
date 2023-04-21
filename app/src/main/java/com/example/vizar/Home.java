@@ -7,10 +7,13 @@ import static com.example.vizar.R.color.white;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -32,13 +35,16 @@ public class Home extends AppCompatActivity {
     private RecyclerView.Adapter ParentAdapter;
     ArrayList<Horizantalrecyclerview> parentModelArrayList = new ArrayList<>();
     private RecyclerView.LayoutManager parentLayoutManager;
-    ImageButton home,saved,settings,search;
+    static ImageButton home,saved,settings,search;
+
+    static Fragment LatestFragment;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         home = findViewById(R.id.homebutton);
         saved= findViewById(R.id.savedbutton);
         settings= findViewById(R.id.settingbutton);
@@ -59,11 +65,13 @@ public class Home extends AppCompatActivity {
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 if(!(boolean)Paper.book().read("IsSeller",false))
+                {
                     fragmentManager.beginTransaction()
                             .replace(R.id.fragmentContainerView3,homemain.class,null)
                             .setReorderingAllowed(true)
                             .addToBackStack(null)
                             .commit();
+                }
                 else
                     fragmentManager.beginTransaction()
                             .replace(R.id.fragmentContainerView3,HomeMainSellerMode.class,null)
@@ -71,10 +79,7 @@ public class Home extends AppCompatActivity {
                             .addToBackStack(null)
                             .commit();
 
-                home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),white)));
-                settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
+
 
             }
         });
@@ -87,10 +92,7 @@ public class Home extends AppCompatActivity {
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit();
-                settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),white)));
-                home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
+
 
 
             }
@@ -104,10 +106,7 @@ public class Home extends AppCompatActivity {
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit();
-                home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),white)));
+
 
             }
         });
@@ -120,10 +119,7 @@ public class Home extends AppCompatActivity {
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit();
-                home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
-                search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),white)));
-                saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getBaseContext(),Grey)));
+
 
             }
         });
@@ -132,10 +128,47 @@ public class Home extends AppCompatActivity {
         ImageView UserImage = findViewById(R.id.UserTopImage);
         User user = (User) Paper.book().read("User");
         Glide.with(this).load("http://abdenourzermat-001-site1.htempurl.com/images/" + user.imageID).into(UserImage);
-
+        UserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //load view account activity
+                Intent i = new Intent(view.getContext(), ViewAccount.class);
+                i.putExtra("OverrideUser", false);
+                view.getContext().startActivity(i);
+            }
+        });
     }
 
+    public static void ButtomNavHome(Fragment fragment){
 
+        home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),white)));
+        settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        LatestFragment = fragment;
+    }
+    public static void ButtomNavSearch(Fragment fragment){
 
+        home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),white)));
+        saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        LatestFragment = fragment;
+    }
+    public static void ButtomNavSaved(Fragment fragment){
 
+        home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),white)));
+        LatestFragment = fragment;
+    }
+    public static void ButtomNavSettings(Fragment fragment){
+
+        settings.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),white)));
+        home.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        search.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
+        LatestFragment = fragment;
+    }
 }

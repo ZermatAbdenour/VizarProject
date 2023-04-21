@@ -13,6 +13,7 @@ import com.example.vizar.Model.productDto;
 import java.util.List;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -46,6 +47,7 @@ public interface APILink {
     //Products Functions
 
     //add new Product
+    /*
     @Multipart
     @POST("images")
     public Call<GUIDDto> uploadimage(@Part MultipartBody.Part file);
@@ -55,6 +57,27 @@ public interface APILink {
 
     @POST("products")
     public Call<product> uploadproduct(@Body productDto product);
+    */
+    @Multipart
+    @POST("products")
+    Call<Void> uploadProduct(
+            @Part MultipartBody.Part imageFile,
+            @Part MultipartBody.Part modelFile,
+            @Part("Name") RequestBody name,
+            @Part("Price") RequestBody price,
+            @Part("Description") RequestBody description,
+            @Part("Categorie") RequestBody category,
+            @Part("SellerID") RequestBody sellerID,
+            @Part("SellerName") RequestBody sellerName,
+            @Part("WebLink") RequestBody webLink,
+            @Part("Width") RequestBody width,
+            @Part("Height") RequestBody height,
+            @Part("Depth") RequestBody depth,
+            @Part("Weight") RequestBody weight,
+            @Part("Volume") RequestBody volume,
+            @Part("ModelExtension") RequestBody modelExtension
+    );
+
 
     //Home
     @GET("products/scroll")
