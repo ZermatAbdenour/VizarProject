@@ -54,8 +54,9 @@ public class product implements Serializable {
     @SerializedName("modelID")
     @Expose
     public String modelid;
-
-    public SellerDto seller;
+    @SerializedName("modelExtension")
+    @Expose
+    public String modelExtension;
 
     public product(String name, float price, String description) {
         this.name = name;

@@ -8,8 +8,15 @@ public class productDto {
     public String SellerName;
     public String SellerID;
     public String WebLink;
+    public float Width;
+    public float Height;
+    public float Depth;
+    public float Weight;
+    public float Volume;
+    public String ModelExtension;
 
-    public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume, String imageID, String modelID) {
+
+    public productDto(String name, float price, String description, String categorie,String sellerID,String sellerName, String webLink, float width, float height, float depth, float weight, float volume,String modelExtension) {
         Name = name;
         Price = price;
         Description = description;
@@ -22,15 +29,6 @@ public class productDto {
         Depth = depth;
         Weight = weight;
         Volume = volume;
-        ImageID = imageID;
-        ModelID = modelID;
+        ModelExtension = modelExtension;
     }
-
-    public float Width;
-    public float Height;
-    public float Depth;
-    public float Weight;
-    public float Volume;
-    public String ImageID;
-    public String ModelID;
 }

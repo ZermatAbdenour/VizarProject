@@ -21,6 +21,11 @@ import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
+
 import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -55,6 +60,7 @@ public class ProductView extends AppCompatActivity {
 
             }
         });
+
 
 
         //Load Product Data
@@ -152,6 +158,16 @@ public class ProductView extends AppCompatActivity {
         //name
         TextView Name = (TextView) findViewById(R.id.ProductViewName);
         Name.setText(Product.name);
+        //Price
+        TextView Price = (TextView) findViewById(R.id.ProductViewPrice);
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+        format.setCurrency(Currency.getInstance("usd"));
+        format.setMinimumFractionDigits(0);
+        String result = format.format(Product.price);
+
+        Price.setText(result);
+
         //sellernqme
 
         TextView Sellername = (TextView)findViewById(R.id.SellerName) ;

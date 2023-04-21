@@ -21,7 +21,10 @@ import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
+import java.text.NumberFormat;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,11 +90,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public void setData(product newproduct) {
             textname.setText(newproduct.name);
-            textprice.setText(String.valueOf(newproduct.price));
+
+            NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
+            format.setCurrency(Currency.getInstance("usd"));
+            format.setMinimumFractionDigits(0);
+            String result = format.format(newproduct.price);
+            textprice.setText(result);
+
             if(!showdate)
                 textsellername.setText(newproduct.sellerName);
             else
-                textsellername.setText(newproduct.publishDate);
+                textsellername.setText("published since : " + newproduct.publishDate);
 
             RequestOptions requestOptions = new RequestOptions()
                     .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
