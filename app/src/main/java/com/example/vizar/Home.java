@@ -5,10 +5,10 @@ import static com.example.vizar.R.color.Grey;
 import static com.example.vizar.R.color.white;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ViewFlipper;
@@ -18,17 +18,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.vizar.Model.User;
@@ -60,14 +49,14 @@ public class Home extends AppCompatActivity {
         saved= findViewById(R.id.savedbutton);
         settings= findViewById(R.id.settingbutton);
         search= findViewById(R.id.searchbutton);
-        headercontainer = findViewById(R.id.Header_container);
+       // headercontainer = findViewById(R.id.Header_container);
 
         // flipper anim
 
-        headercontainer.setInAnimation(AnimationUtils.loadAnimation(
+      /*  headercontainer.setInAnimation(AnimationUtils.loadAnimation(
                 Home.this, R.anim.upslide));
         headercontainer.setOutAnimation(AnimationUtils.loadAnimation(
-                Home.this, R.anim.downslide));
+                Home.this, R.anim.downslide));*/
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
