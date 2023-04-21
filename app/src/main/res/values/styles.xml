@@ -45,4 +45,21 @@
             #FFFFFF
         </item>
     </style>
+
+
+        <style name="MyDenseOutlined" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+            <item name="materialThemeOverlay">@style/MyThemeOverlayOutlinedDense</item>
+
+        </style>
+
+        <style name="MyThemeOverlayOutlinedDense">
+            <item name="editTextStyle">@style/MyTextInputEditText_outlinedBox_dense_h
+            </item>
+        </style>
+
+        <style name="MyTextInputEditText_outlinedBox_dense_h" parent="@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+            <item name="android:paddingTop">6dp</item>
+            <item name="android:paddingBottom">6dp</item>
+        </style>
+
 </resources>

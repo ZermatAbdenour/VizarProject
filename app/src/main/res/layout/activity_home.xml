@@ -8,59 +8,30 @@
     android:orientation="vertical"
     tools:context=".Home">
 
-    <RelativeLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_gravity="top"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
+
+    <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Header_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="#090A0A"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/vizar"
-            android:layout_width="100dp"
-            android:layout_height="32dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="17dp"
-            android:layout_marginBottom="10dp"
-            android:lineSpacingExtra="3sp"
-            android:text="VizAR"
-            android:textColor="#FFFFFF"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+        <include android:id="@+id/include1" layout="@layout/header" />
+        <include android:id="@+id/map" layout="@layout/searchheader" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
+    </ViewFlipper>
 
-            app:cardCornerRadius="32dp">
-            <ImageView
-                android:id="@+id/UserTopImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
 
-        </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="820dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="20dp"
+        app:cardCornerRadius="36dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/Header_container"
         >
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView3"

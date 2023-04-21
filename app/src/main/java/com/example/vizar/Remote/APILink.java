@@ -79,4 +79,10 @@ public interface APILink {
     @POST("users/savedproducts/stat/{id}")
     public Call<Void> setproductsavestate(@Path("id")String id,@Query("productid")String productid,@Query("savestat")Boolean savestat);
 
+
+    @GET("products/search/autocomplete")
+    public Call<List<product>> autocomplete(@Query("query")String text);
+
+    @POST("products/search/FullSearch")
+    public Call<List<product>> Search(@Query("query")String text,@Query("Offset")int offset,@Query("productscount")int productscount,@Query("categories")String categories);
 }
