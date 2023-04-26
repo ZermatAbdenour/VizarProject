@@ -116,7 +116,7 @@ public class savedFragment extends Fragment {
         recyclerview = view.findViewById(R.id.saved_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerview.setHasFixedSize(true);
-         adapter = new Adapter(savedproductslist,R.layout.product,false);
+         adapter = new Adapter(savedproductslist,R.layout.product,false,false,getActivity());
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(new BaseGridConcatAdapter(getContext(),adapter,2,"Saved Products"),footer);
         recyclerview.setAdapter(concatAdapter);

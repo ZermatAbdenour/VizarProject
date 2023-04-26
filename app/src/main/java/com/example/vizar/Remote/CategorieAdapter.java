@@ -1,5 +1,6 @@
 package com.example.vizar.Remote;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,19 +12,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vizar.CategorieCard;
+import com.example.vizar.Home;
 import com.example.vizar.R;
 
 import java.util.List;
+
+import io.paperdb.Paper;
 
 public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.MyViewHolder2> {
 
 
     public List<CategorieCard> Categories;
     Context ctx;
+    Activity home;
 
-    public CategorieAdapter(List<CategorieCard> categories, Context ctx) {
+    public CategorieAdapter(List<CategorieCard> categories, Context ctx, Activity home) {
         Categories = categories;
         this.ctx = ctx;
+        this.home = home;
     }
 
     @NonNull
@@ -56,7 +62,16 @@ public class CategorieAdapter extends RecyclerView.Adapter<CategorieAdapter.MyVi
                 super(itemView);
                 Categorieimage = itemView.findViewById(R.id.Categorie_Image);
                 Categoriename = itemView.findViewById(R.id.Category_Name);
+                itemView.findViewById(R.id.Categorie_Card).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+
+                        ((Home)home).searchfragment();
+                        Paper.book().write("category",Categoriename.getText().toString());
+
+                    }
+                });
 
 
             }

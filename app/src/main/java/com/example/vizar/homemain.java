@@ -81,8 +81,8 @@ import retrofit2.Response;
 
             horizantalrecyclerviewList.add(new Horizantalrecyclerview("Featured categories"));
 
-            listadapter = new Adapter(productslist,R.layout.product,false);
-            outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext());
+            listadapter = new Adapter(productslist,R.layout.product,false,false,getActivity());
+            outeradapter = new Adapter_1(horizantalrecyclerviewList,getContext(),getActivity());
             footer = new footeradapter(R.layout.footer);
             concatAdapter = new ConcatAdapter(outeradapter,new BaseGridConcatAdapter(getContext(),listadapter,2,"Recommendations"),footer);
 

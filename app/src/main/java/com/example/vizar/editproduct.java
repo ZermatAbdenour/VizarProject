@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.vizar.Model.User;
+import com.example.vizar.Model.product;
 import com.example.vizar.Model.productDto;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
@@ -51,7 +52,7 @@ import retrofit2.Response;
  * Use the {@link AddNewProduct#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AddNewProduct extends Fragment {
+public class editproduct extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,8 +62,9 @@ public class AddNewProduct extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private product currentproduct;
 
-    public AddNewProduct() {
+    public editproduct() {
         // Required empty public constructor
     }
 
@@ -101,6 +103,9 @@ public class AddNewProduct extends Fragment {
     private String ModelID;
     private String ModelExtension;
 
+
+    private boolean EditImage,EditModel;
+
     public static AddNewProduct newInstance(String param1, String param2) {
         AddNewProduct fragment = new AddNewProduct();
         Bundle args = new Bundle();
@@ -125,27 +130,44 @@ public class AddNewProduct extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_new_product, container, false);
+        return inflater.inflate(R.layout.fragment_editproduct, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
         //Start Setting References
-        NameInputField = view.findViewById(R.id.NameInputField);
-        PriceInputField = view.findViewById(R.id.PriceInputField);
-        DescriptionInputField = view.findViewById(R.id.DescriptionInputField);
+        NameInputField = view.findViewById(R.id.edit_NameInputField);
+        PriceInputField = view.findViewById(R.id.edit_PriceInputField);
+        DescriptionInputField = view.findViewById(R.id.edit_DescriptionInputField);
         //Category DropDown
-        CategorieDropDown=view.findViewById(R.id.CategorieDropDown);
+        CategorieDropDown=view.findViewById(R.id.edit_CategorieDropDown);
         adapterItems = new ArrayAdapter<String>(getContext(),R.layout.list_item,items);
         CategorieDropDown.setAdapter(adapterItems);
-        WebLinkInputField = view.findViewById(R.id.WebSiteInputField);
-        WidthInputField = view.findViewById(R.id.WidthInputField);
-        HeightInputField = view.findViewById(R.id.HeightInputField);
-        DepthInputField = view.findViewById(R.id.DepthInputField);
-        WeightInputField = view.findViewById(R.id.WeightInputField);
-        VolumeInputField = view.findViewById(R.id.VolumeInputField);
+        WebLinkInputField = view.findViewById(R.id.edit_WebSiteInputField);
+        WidthInputField = view.findViewById(R.id.edit_WidthInputField);
+        HeightInputField = view.findViewById(R.id.edit_HeightInputField);
+        DepthInputField = view.findViewById(R.id.edit_DepthInputField);
+        WeightInputField = view.findViewById(R.id.edit_WeightInputField);
+        VolumeInputField = view.findViewById(R.id.edit_VolumeInputField);
         //End References
+
+        //set input values
+        currentproduct = ((Home)getActivity()).product ;
+        NameInputField.setText(currentproduct.name);
+        PriceInputField.setText(String.valueOf(currentproduct.price));
+        DescriptionInputField.setText(currentproduct.description);
+        CategorieDropDown.setText(currentproduct.categorie);
+        WebLinkInputField.setText(currentproduct.weblink);
+        WidthInputField.setText(String.valueOf(currentproduct.width));
+        HeightInputField.setText(String.valueOf(currentproduct.height));
+        DepthInputField.setText(String.valueOf(currentproduct.depth));
+        WeightInputField.setText(String.valueOf(currentproduct.weight));
+        VolumeInputField.setText(String.valueOf(currentproduct.volume));
+
+
+
 
 
         CategorieDropDown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -178,8 +200,12 @@ public class AddNewProduct extends Fragment {
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
                         ImageUri = uri;
+                        EditImage=true;
+                        System.out.println(EditImage);
                     } else {
                         Log.d("PhotoPicker", "No media selected");
+                        EditImage=false;
+                        System.out.println(EditImage);
                     }
                 });
 
@@ -189,9 +215,13 @@ public class AddNewProduct extends Fragment {
                     if (uri.getData() != null) {
                         Log.d("filePicker", "Selected URI: " + uri);
                         ModelUri =uri.getData().getData();
+                        EditModel=true;
+                        System.out.println(EditModel);
 
                     } else {
                         Log.d("filePicker", "No file selected");
+                        EditModel=true;
+                        System.out.println(EditModel);
                     }
                 });
 
@@ -199,7 +229,7 @@ public class AddNewProduct extends Fragment {
 
         //Photo Selector Listener
 
-        RelativeLayout SelectImage = (RelativeLayout) view.findViewById(R.id.SelectProductImage);
+        RelativeLayout SelectImage = (RelativeLayout) view.findViewById(R.id.edit_SelectProductImage);
 
         SelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,7 +243,7 @@ public class AddNewProduct extends Fragment {
 
         //Model Selector Listener
 
-        RelativeLayout SelectModel = (RelativeLayout) view.findViewById(R.id.SelectProductModel);
+        RelativeLayout SelectModel = (RelativeLayout) view.findViewById(R.id.edit_SelectProductModel);
 
         SelectModel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,179 +255,76 @@ public class AddNewProduct extends Fragment {
             }
         });
 
-        //On Create New Product Button Clicked
 
-        Button CreateNewProductButton = (Button) view.findViewById(R.id.CreateNewProductButton);
+        //On edit Product Button Clicked
 
-        CreateNewProductButton.setOnClickListener(new View.OnClickListener() {
+        Button editProductButton = (Button) view.findViewById(R.id.editProductButton);
+
+        editProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println(ValidateInputs());
                 if(ValidateInputs()){
                     //Upload Image and Save ImageID
                     UploadProduct();
-                    ShowSnakeBar("Publishing your product ...");
+                    ShowSnakeBar("edeting your product ...");
                 }
                 else ShowSnakeBar("some informations are missing");
             }
         });
     }
 
-    /*
-    private void UploadImage(){
-        File imagefile = new File(FileHelper.getRealPathFromURI(getContext(),ImageUri));
 
-        File CompressedImageFile;
-        try {
-            CompressedImageFile = File.createTempFile("TempCompressedImage", ".png",getActivity().getApplicationContext().getCacheDir());
-            CompressedImageFile = new Compressor(getContext()).setMaxHeight(400).setMaxWidth(500).compressToFile(imagefile);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-
-        RequestBody requestFile =
-                RequestBody.create(
-                        MediaType.parse(getContext().getContentResolver().getType(ImageUri)),
-                        CompressedImageFile
-                );
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("Image", CompressedImageFile.getName(), requestFile);
-
-
-        Call<GUIDDto> UploadImage = apiLink.uploadimage(body);
-        File finalCompressedImageFile = CompressedImageFile;
-        UploadImage.enqueue(new Callback<GUIDDto>() {
-            @Override
-            public void onResponse(Call<GUIDDto> call, Response<GUIDDto> response) {
-                ImageID = response.body().id;
-                System.out.println(response.body().id);
-
-                //Clean Up
-                finalCompressedImageFile.delete();
-
-
-                //Upload Model After image Uploaded
-                UploadModel();
-
-            }
-
-            @Override
-            public void onFailure(Call<GUIDDto> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
-
-
-    }
-    private void UploadModel(){
-        //Upload Model and Save ModelID
-        String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
-        File modelfile = new File(ModelPath);
-        ModelExtension = GetFileExtension(ModelPath);
-
-        RequestBody requestModelFile =
-                RequestBody.create(
-                        MediaType.parse(getContext().getContentResolver().getType(ModelUri)),
-                        modelfile
-                );
-        MultipartBody.Part Modelbody =
-                MultipartBody.Part.createFormData("Model", modelfile.getName(), requestModelFile);
-
-
-        Call<GUIDDto> UploadFile = apiLink.uploadmodel(Modelbody);
-
-        UploadFile.enqueue(new Callback<GUIDDto>() {
-            @Override
-            public void onResponse(Call<GUIDDto> call, Response<GUIDDto> response) {
-                ModelID = response.body().id;
-                System.out.println("Model ID : " + response.body().id);
-
-                //Create new Product Dto and Upload it to Database
-                CreateProduct();
-            }
-
-            @Override
-            public void onFailure(Call<GUIDDto> call, Throwable t) {
-                System.out.println("ls;;oasdipoasdiaopsdoaidoasid "+t);
-            }
-        });
-    }
-
-    private void CreateProduct(){
-        User SellerAccount = Paper.book().read("User");
-        productDto productdto = new productDto(
-                NameInputField.getText().toString(),
-                Float.valueOf(PriceInputField.getText().toString()),
-                DescriptionInputField.getText().toString(),
-                CategorieDropDown.getText().toString(),
-                SellerAccount.id,
-                SellerAccount.userName,
-                WebLinkInputField.getText().toString(),
-                Float.valueOf(WidthInputField.getText().toString()),
-                Float.valueOf(HeightInputField.getText().toString()),
-                Float.valueOf(DepthInputField.getText().toString()),
-                Float.valueOf(WeightInputField.getText().toString()),
-                Float.valueOf(VolumeInputField.getText().toString()),
-                ImageID,
-                ModelID,
-                ModelExtension
-                );
-
-        Call<product> UploadProduct = apiLink.uploadproduct(productdto);
-
-        UploadProduct.enqueue(new Callback<product>() {
-            @Override
-            public void onResponse(Call<product> call, Response<product> response) {
-                System.out.println(response.body().id);
-                ShowSnakeBar("Your product has been created !");
-            }
-
-            @Override
-            public void onFailure(Call<product> call, Throwable t) {
-                System.out.println(t);
-            }
-        });
-    }
-
-     */
     private void UploadProduct(){
         //image bodyPart
-        File imagefile = new File(FileHelper.getRealPathFromURI(getContext(),ImageUri));
+                MultipartBody.Part imagebody=null;
+                if(EditImage) {
+                    File imagefile = new File(FileHelper.getRealPathFromURI(getContext(), ImageUri));
+                    File CompressedImageFile;
+                    try {
+                        CompressedImageFile = File.createTempFile("TempCompressedImage", ".png", getActivity().getApplicationContext().getCacheDir());
+                        CompressedImageFile = new Compressor(getContext()).setMaxHeight(400).setMaxWidth(500).compressToFile(imagefile);
 
-        File CompressedImageFile;
-        try {
-            CompressedImageFile = File.createTempFile("TempCompressedImage", ".png",getActivity().getApplicationContext().getCacheDir());
-            CompressedImageFile = new Compressor(getContext()).setMaxHeight(400).setMaxWidth(500).compressToFile(imagefile);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
 
 
-        RequestBody requestFile =
-                RequestBody.create(
-                        MediaType.parse(getContext().getContentResolver().getType(ImageUri)),
-                        CompressedImageFile
-                );
-        MultipartBody.Part imagebody =
-                MultipartBody.Part.createFormData("ImageFile", CompressedImageFile.getName(), requestFile);
+                    RequestBody requestFile =
+                            RequestBody.create(
+                                    MediaType.parse(getContext().getContentResolver().getType(ImageUri)),
+                                    CompressedImageFile
+                            );
+                    imagebody =
+                            MultipartBody.Part.createFormData("ImageFile", CompressedImageFile.getName(), requestFile);
+
+
+                }
 
         //model Body part
 
         //Upload Model and Save ModelID
-        String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
-        File modelfile = new File(ModelPath);
-        ModelExtension = GetFileExtension(ModelPath);
+        MultipartBody.Part modelbody=null;
 
-        RequestBody requestModelFile =
-                RequestBody.create(
-                        MediaType.parse(getContext().getContentResolver().getType(ModelUri)),
-                        modelfile
-                );
-        MultipartBody.Part modelbody =
-                MultipartBody.Part.createFormData("ModelFile", modelfile.getName(), requestModelFile);
+                ModelExtension = currentproduct.modelExtension;
+                if(EditModel){
+    String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
+    File modelfile = new File(ModelPath);
+
+    ModelExtension = GetFileExtension(ModelPath);
+
+    RequestBody requestModelFile =
+            RequestBody.create(
+                    MediaType.parse(getContext().getContentResolver().getType(ModelUri)),
+                    modelfile
+            );
+     modelbody =
+            MultipartBody.Part.createFormData("ModelFile", modelfile.getName(), requestModelFile);
+
+}
+
+
+
 
 
 
@@ -417,7 +344,8 @@ public class AddNewProduct extends Fragment {
                 Float.valueOf(VolumeInputField.getText().toString()),
                 ModelExtension
         );
-
+       // RequestBody ImageUpdated = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(EditImage));
+        //RequestBody ModelUpdated = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(EditModel));
         RequestBody Name = RequestBody.create(MediaType.parse("text/plain"), productdto.Name);
         RequestBody Price = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Price));
         RequestBody Description = RequestBody.create(MediaType.parse("text/plain"), productdto.Description);
@@ -430,10 +358,15 @@ public class AddNewProduct extends Fragment {
         RequestBody Depth = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Depth));
         RequestBody Weight = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Weight));
         RequestBody Volume = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(productdto.Volume));
-        RequestBody ModelExtension = RequestBody.create(MediaType.parse("text/plain"), productdto.ModelExtension);
+        RequestBody   Modelextension   = RequestBody.create(MediaType.parse("text/plain"), productdto.ModelExtension);
 
 
-        Call<Void> UploadProduct = apiLink.uploadProduct(
+        System.out.println(EditImage+"dasddsadas"+"jh5555555555555555555555555555");
+
+        Call<Void> editProduct = apiLink.editProduct(
+                currentproduct.id,
+                EditImage,
+                EditModel,
                 imagebody,
                 modelbody,
                 Name,
@@ -448,12 +381,12 @@ public class AddNewProduct extends Fragment {
                 Depth,
                 Weight,
                 Volume,
-                ModelExtension);
-        UploadProduct.enqueue(new Callback<Void>() {
+                Modelextension);
+        editProduct.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                    System.out.println(response.message());
-                    ShowSnakeBar("Your product has been uploaded");
+                System.out.println(response.message());
+                ShowSnakeBar("Your product has been edited");
 
 
             }
@@ -488,10 +421,6 @@ public class AddNewProduct extends Fragment {
         if(isEmpty(WeightInputField))
             return false;
         if(isEmpty(VolumeInputField))
-            return false;
-        if(ImageUri == null)
-            return false;
-        if(ModelUri == null)
             return false;
 
         return  true;

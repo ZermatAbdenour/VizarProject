@@ -11,16 +11,17 @@
         android:layout_height="216dp"
         app:cardCornerRadius="6dp"
         android:layout_centerInParent="true"
+        android:clickable="true"
 
 
 
         >
+
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/greyblur"
-            android:translationZ="1sp"
-            ></View>
+            android:translationZ="1sp" />
         <ImageView
             android:id="@+id/Categorie_Image"
             android:layout_width="match_parent"

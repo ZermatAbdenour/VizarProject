@@ -1,14 +1,12 @@
 package com.example.vizar.Remote;
 
 import com.example.vizar.Model.CreateUserDto;
-import com.example.vizar.Model.GUIDDto;
 import com.example.vizar.Model.LoginDto;
 import com.example.vizar.Model.SellerDto;
 import com.example.vizar.Model.UpdatePasswordDto;
 import com.example.vizar.Model.UpdateProfileDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
-import com.example.vizar.Model.productDto;
 
 import java.util.List;
 
@@ -78,7 +76,28 @@ public interface APILink {
             @Part("ModelExtension") RequestBody modelExtension
     );
 
-
+    @Multipart
+    @PUT("products/{id}")
+    Call<Void> editProduct(
+            @Path("id")String id,
+            @Part ("ImageUpdated")Boolean ImageUpdated,
+            @Part ("ModelUpdated")Boolean ModelUpdated,
+            @Part MultipartBody.Part imageFile,
+            @Part MultipartBody.Part modelFile,
+            @Part("Name") RequestBody name,
+            @Part("Price") RequestBody price,
+            @Part("Description") RequestBody description,
+            @Part("Categorie") RequestBody category,
+            @Part("SellerID") RequestBody sellerID,
+            @Part("SellerName") RequestBody sellerName,
+            @Part("WebLink") RequestBody webLink,
+            @Part("Width") RequestBody width,
+            @Part("Height") RequestBody height,
+            @Part("Depth") RequestBody depth,
+            @Part("Weight") RequestBody weight,
+            @Part("Volume") RequestBody volume,
+            @Part("ModelExtension") RequestBody modelExtension
+    );
     //Home
     @GET("products/scroll")
     public Call<List<product>> getproducts(@Query("Offset") int offset,@Query("productsCount") int productsCount);
@@ -106,6 +125,6 @@ public interface APILink {
     @GET("products/search/autocomplete")
     public Call<List<product>> autocomplete(@Query("query")String text);
 
-    @POST("products/search/FullSearch")
-    public Call<List<product>> Search(@Query("query")String text,@Query("Offset")int offset,@Query("productscount")int productscount,@Query("categories")String categories);
+    @GET("products/search/FullSearch")
+    public Call<List<product>> Search(@Query("query")String text,@Query("Offset")int offset,@Query("productscount")int productscount,@Query("categories")String categories,@Query("minPrice")float minprice,@Query("maxPrice")float maxprice);
 }

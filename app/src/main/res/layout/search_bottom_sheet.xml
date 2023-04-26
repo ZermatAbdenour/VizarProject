@@ -10,6 +10,7 @@
     android:id="@+id/FiltersButtomSheetContainer"
     >
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,13 +64,73 @@
 
 
         />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp"
+            android:hint="Min Price"
+            app:endIconDrawable="@drawable/dollar"
+            app:endIconMode="custom">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/MinPrice"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:inputType="numberSigned"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="155dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Max Price"
+
+            app:endIconDrawable="@drawable/dollar"
+            app:endIconMode="custom">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Maxprice"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:inputType="numberSigned"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </RelativeLayout>
 
     <com.google.android.material.slider.RangeSlider
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        ></com.google.android.material.slider.RangeSlider>
+        android:id="@+id/Pricerange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:valueFrom="0"
+        android:valueTo="10000"
+
+
+        app:values="@array/initial_values" />
 
 
 
@@ -87,21 +149,21 @@
 
 
     <CheckBox
+        android:id="@+id/Allcategories"
+        style="@style/Widget.AppCompat.CompoundButton.CheckBox"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
-
         android:text="All categories"
         android:textColor="@color/black"
         android:layoutDirection="rtl"
 
+
         android:layout_marginHorizontal="22dp"
         />
     <CheckBox
+        android:id="@+id/Wardrobes"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
-
         android:text="Wardrobes"
         android:textColor="@color/black"
         android:layoutDirection="rtl"
@@ -109,19 +171,18 @@
         android:layout_marginHorizontal="22dp"
         />
     <CheckBox
+        android:id="@+id/Sofas"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
-
         android:text="Sofas"
         android:textColor="@color/black"
         android:layoutDirection="rtl"
         android:layout_marginHorizontal="22dp"
         />
     <CheckBox
+        android:id="@+id/Dressers"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
 
         android:text="Dressers"
         android:textColor="@color/black"
@@ -129,9 +190,9 @@
         android:layout_marginHorizontal="22dp"
         />
     <CheckBox
+        android:id="@+id/Armchairs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
 
         android:text="Armchairs"
         android:textColor="@color/black"
@@ -140,9 +201,9 @@
         />
 
     <CheckBox
+        android:id="@+id/Dining_Tables"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:button="@drawable/categorie_frame"
 
         android:text="Dining Tables"
         android:textColor="@color/black"
@@ -150,39 +211,15 @@
         android:layout_marginHorizontal="22dp"
         />
 
-    <com.google.android.material.chip.ChipGroup
+    <CheckBox
+        android:id="@+id/TV_Stands"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="All categories"
+        android:layout_height="48dp"
 
-            />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wardrobes"
-
-            />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sofas"
-
-            />
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dressers"
-            app:chipBackgroundColor="#CA6E3C"
-            android:elevation="3dp"
-            android:textColor="@color/white"
-
-            />
-
-    </com.google.android.material.chip.ChipGroup>
+        android:text="TV Stands"
+        android:textColor="@color/black"
+        android:layoutDirection="rtl"
+        android:layout_marginHorizontal="22dp"
+        />
 
 </LinearLayout>

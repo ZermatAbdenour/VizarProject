@@ -119,7 +119,7 @@ public class Deleteproduct extends Fragment {
         recyclerview = view.findViewById(R.id.delete_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),1));
         recyclerview.setHasFixedSize(true);
-         adapter = new Adapter(warehouseproductslist,R.layout.deleteproduct,true);
+         adapter = new Adapter(warehouseproductslist,R.layout.deleteproduct,true,false,getActivity());
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(adapter,footer);
         recyclerview.setAdapter(concatAdapter);

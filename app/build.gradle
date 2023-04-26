@@ -61,6 +61,7 @@ dependencies {
     implementation 'io.github.pilgr:paperdb:2.7.2'
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.fredporciuncula:phonemoji:1.4.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 
     //Used to fix Duplicated Classes
     modules {

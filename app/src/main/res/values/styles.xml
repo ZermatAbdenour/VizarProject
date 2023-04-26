@@ -61,5 +61,18 @@
             <item name="android:paddingTop">6dp</item>
             <item name="android:paddingBottom">6dp</item>
         </style>
+    
+    
+    <style name="BottomSheetDialogTheme" parent ="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyle</item>
+    </style>
+
+    <style name="bottomSheetStyle" parent ="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+    <style name="yourStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">#CA6E3C</item> <!-- for checked state -->
+        <item name="colorControlNormal">#000000</item> <!-- for unchecked state -->
+    </style>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.example.vizar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter_1 extends RecyclerView.Adapter<Adapter_1.MyViewHolder>{
+    private Activity activity;
     private ArrayList<Horizantalrecyclerview> parentModelArrayList;
     public Context cxt;
 
-    public Adapter_1(ArrayList<Horizantalrecyclerview> parentModelArrayList, Context cxt) {
+    public Adapter_1(ArrayList<Horizantalrecyclerview> parentModelArrayList, Context cxt, Activity activity) {
         this.parentModelArrayList = parentModelArrayList;
         this.cxt = cxt;
+        this.activity = activity;
 
     }
 
@@ -47,12 +50,12 @@ public class Adapter_1 extends RecyclerView.Adapter<Adapter_1.MyViewHolder>{
 
             List.add(new CategorieCard(R.drawable.cat_cat1,"Wardrobes"));
             List.add(new CategorieCard(R.drawable.cat_armchairs,"Armchairs"));
-            List.add(new CategorieCard( R.drawable.cat_diningtable,"DiningTable"));
+            List.add(new CategorieCard( R.drawable.cat_diningtable,"Dining Table"));
             List.add(new CategorieCard( R.drawable.cat_dressers,"Dressers"));
             List.add(new CategorieCard( R.drawable.cat_sofas,"Sofas"));
             List.add(new CategorieCard( R.drawable.cat_tvstands,"TV Stands"));
 
-            CategorieAdapter childRecyclerViewAdapter = new CategorieAdapter(List,holder.childRecyclerView.getContext());
+            CategorieAdapter childRecyclerViewAdapter = new CategorieAdapter(List,holder.childRecyclerView.getContext(),activity);
             holder.childRecyclerView.setAdapter(childRecyclerViewAdapter);
 
 

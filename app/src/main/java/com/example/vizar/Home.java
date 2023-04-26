@@ -33,10 +33,12 @@ public class Home extends AppCompatActivity {
     private RecyclerView.LayoutManager parentLayoutManager;
     static ImageButton home,saved,settings,search;
 
+    public  com.example.vizar.Model.product product;
+
     static Fragment LatestFragment;
 
          ViewFlipper headercontainer;
-
+    private searchFragment searchFragment;
 
 
     @SuppressLint("MissingInflatedId")
@@ -180,4 +182,33 @@ public class Home extends AppCompatActivity {
         saved.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(fragment.getActivity(),Grey)));
         LatestFragment = fragment;
     }
+    public void searchfragment()
+    {
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView3, com.example.vizar.searchFragment.class,null)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+
+    }
+    public void editproductfragment()
+    {
+
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView3, com.example.vizar.editproduct.class,null)
+                .setReorderingAllowed(true)
+                .addToBackStack(null)
+                .commit();
+
+
+
+
+    }
+
+
 }

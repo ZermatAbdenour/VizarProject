@@ -120,7 +120,7 @@ public class warehouse extends Fragment {
         recyclerview = view.findViewById(R.id.warehouse_recyclerView);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerview.setHasFixedSize(true);
-        adapter = new Adapter(warehouselist,R.layout.product,true);
+        adapter = new Adapter(warehouselist,R.layout.product,true,true,getActivity());
 
         footeradapter footer = new footeradapter(R.layout.savedfooter);
         ConcatAdapter concatAdapter = new ConcatAdapter(adapter,footer);
