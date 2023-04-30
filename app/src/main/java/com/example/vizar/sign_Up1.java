@@ -1,23 +1,23 @@
 package com.example.vizar;
 
-import static com.example.vizar.R.color.*;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import static com.example.vizar.R.color.good;
+import static com.example.vizar.R.color.strong;
+import static com.example.vizar.R.color.toweak;
+import static com.example.vizar.R.color.weak;
+import static com.example.vizar.R.color.white;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.os.Debug;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.vizar.Model.CreateUserDto;
 import com.example.vizar.Model.User;
@@ -25,11 +25,7 @@ import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
 import io.paperdb.Paper;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,10 +41,14 @@ public class sign_Up1 extends AppCompatActivity {
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APILink apiLink;
     int minlength,digits,lowercase,symobles,upercase,strength;
+    private CustomSnackbar snackbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up1);
+
+        snackbar = new CustomSnackbar(this);
 
         apiLink = RetrofitClient.getInstance().create(APILink.class);
 
@@ -180,8 +180,9 @@ public class sign_Up1 extends AppCompatActivity {
 
             if(InputsValid())
             {
+                LoadingDialog signupLoading = new LoadingDialog(this);
 
-
+                signupLoading.show();
            CreateUserDto createUserDto = new CreateUserDto(Name.getText().toString(),email.getText().toString(),Password.getText().toString());
             /*
             compositeDisposable.add(apiLink.registeruser(createUserDto)
@@ -213,14 +214,18 @@ public class sign_Up1 extends AppCompatActivity {
                             Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();
                             Paper.book().write("Authentified",true);
                             Paper.book().write("User",response.body());
-                            homepage(view);
+                            //homepage(view);
+                            snackbar.Show("Verify your email");
                         }else{
                             Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();
+
                         }
+                        signupLoading.hide();
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
+                        signupLoading.hide();
 
                     }
                 });

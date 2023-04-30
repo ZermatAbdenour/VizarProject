@@ -1,14 +1,14 @@
 package com.example.vizar;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.PickVisualMediaRequest;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.vizar.Model.LoginDto;
 import com.example.vizar.Model.User;
@@ -88,6 +88,8 @@ public class Sign_in extends AppCompatActivity {
                                 snackbar.Show("Email not found");
                         if(response.code() == 401)
                             snackbar.Show("Password is wrong");
+
+                        System.out.println(response.code());
 
                     }
                     signinLoading.dismiss();

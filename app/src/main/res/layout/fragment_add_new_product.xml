@@ -16,7 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <!-- things to scroll -->
 
@@ -293,26 +294,44 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
             <RelativeLayout
                 android:id="@+id/SelectProductImage"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
+                android:layout_weight="0.45"
                 android:clickable="true"
                 >
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
-                    android:background="@drawable/pickfileborder">
+                    android:background="@drawable/pickfileborder2"
 
+                    >
+                </ImageView>
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/imagepicked"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="17.5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="17.5dp"
+                    android:scaleType="centerCrop"
+                    >
                 </ImageView>
 
                 <ImageView
-
+                    android:id="@+id/pickfileplus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -321,44 +340,47 @@
                     android:src="@drawable/pickfileplus"></ImageView>
 
                 <TextView
+                    android:id="@+id/pickimagetext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Upload furniture image"
-                    android:textSize="19sp"
-                    android:textStyle="bold"
                     android:layout_centerInParent="true"
                     android:paddingBottom="40dp"
+                    android:text="Upload furniture image"
                     android:textColor="@color/black"
-                    ></TextView>
+                    android:textSize="15sp"
+                    android:textStyle="bold"></TextView>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/SelectProductModel"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="200dp"
+                android:layout_height="160dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginRight="0dp"
+                android:layout_weight="0.45"
                 >
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
-                    android:background="@drawable/pickfileborder">
+                    android:background="@drawable/pickfileborder2">
 
                 </ImageView>
 
                 <ImageView
+                    android:id="@+id/modelpickplus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:paddingTop="30dp"
-
                     android:src="@drawable/pickfileplus"></ImageView>
 
                 <TextView
+                    android:id="@+id/modelpickertext"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -366,10 +388,24 @@
                     android:text="Upload 3D model"
                     android:textColor="@color/black"
                     android:textSize="19sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/pickedmodelname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:paddingBottom="0dp"
+                    android:text="modelname"
+                    android:textColor="#8E9395"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+
+
 
             </RelativeLayout>
-
+        </LinearLayout>
             <Button
                 android:id="@+id/CreateNewProductButton"
                 android:layout_width="match_parent"
@@ -380,7 +416,9 @@
                 android:layout_marginBottom="200dp"
                 android:background="@drawable/buttonripple"
                 android:text="Publish Now" />
+
         </LinearLayout>
+
 
 
     </ScrollView>

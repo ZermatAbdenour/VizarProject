@@ -3,9 +3,6 @@ package com.example.vizar.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.lang.reflect.Array;
-import java.util.List;
-
 public class User {
 
     @SerializedName("id")
@@ -38,4 +35,8 @@ public class User {
     @SerializedName("imageID")
     @Expose
     public String imageID;
+
+    @SerializedName("verified")
+    @Expose
+    public boolean verified;
 }

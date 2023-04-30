@@ -3,6 +3,8 @@ package com.example.vizar;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -63,6 +67,15 @@ public class editproduct extends Fragment {
     private String mParam1;
     private String mParam2;
     private product currentproduct;
+    private ImageView pickimageplus;
+    private TextView pickimagetext;
+    private ImageView thepickedimage;
+
+    private TextView modelpickertext;
+
+    private TextView modelnametext;
+
+    private ImageView         pickmodelplus;
 
     public editproduct() {
         // Required empty public constructor
@@ -96,12 +109,16 @@ public class editproduct extends Fragment {
     private TextInputEditText DepthInputField;
     private TextInputEditText WeightInputField;
     private TextInputEditText VolumeInputField;
+
+
     private Uri ImageUri;
     private Uri ModelUri;
 
     private String ImageID;
     private String ModelID;
     private String ModelExtension;
+
+
 
 
     private boolean EditImage,EditModel;
@@ -137,6 +154,13 @@ public class editproduct extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         super.onViewCreated(view, savedInstanceState);
+        //picker references
+        pickimagetext =view.findViewById(R.id.pickimagetext);
+        thepickedimage =view.findViewById(R.id.imagepicked);
+        pickimageplus =view.findViewById(R.id.pickfileplus);
+        modelpickertext = view.findViewById(R.id.modelpickertext);
+        modelnametext = view.findViewById(R.id.pickedmodelname);
+        pickmodelplus = view.findViewById(R.id.modelpickplus);
         //Start Setting References
         NameInputField = view.findViewById(R.id.edit_NameInputField);
         PriceInputField = view.findViewById(R.id.edit_PriceInputField);
@@ -179,16 +203,13 @@ public class editproduct extends Fragment {
         });
 
         //Return Button Listener
-        ImageButton ReturnToSellerHome = (ImageButton) view.findViewById(R.id.ReturnToSellerHome);
+        ImageButton ReturnToSellerHome = (ImageButton) view.findViewById(R.id.ReturnTowerehouse);
         ReturnToSellerHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView3,HomeMainSellerMode.class,null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commit();
+                fragmentManager.popBackStack();
+
             }
         });
 
@@ -201,10 +222,23 @@ public class editproduct extends Fragment {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
                         ImageUri = uri;
                         EditImage=true;
+
+                        File image = new File(FileHelper.getRealPathFromURI(getContext(), ImageUri));
+                        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+                        //bitmap = Bitmap.createScaledBitmap(bitmap,5,5,true);
+                        thepickedimage.setImageBitmap(bitmap);
+                        thepickedimage.setVisibility(View.VISIBLE);
+                        pickimageplus.setVisibility(View.INVISIBLE);
+                        pickimagetext.setVisibility(View.INVISIBLE);
+                        System.out.println(EditModel);
                         System.out.println(EditImage);
                     } else {
                         Log.d("PhotoPicker", "No media selected");
                         EditImage=false;
+                        thepickedimage.setVisibility(View.INVISIBLE);
+                        pickimageplus.setVisibility(View.VISIBLE);
+                        pickimagetext.setVisibility(View.VISIBLE);
                         System.out.println(EditImage);
                     }
                 });
@@ -216,12 +250,26 @@ public class editproduct extends Fragment {
                         Log.d("filePicker", "Selected URI: " + uri);
                         ModelUri =uri.getData().getData();
                         EditModel=true;
-                        System.out.println(EditModel);
+                        modelpickertext.setText("Selected Model");
+
+                            int cut = ModelUri.getPath().lastIndexOf('/');
+                        String result = null;
+                        if (cut != -1) {
+                           result = ModelUri.getPath().substring(cut + 1);
+                        }
+                        modelnametext.setText(result);
+                        modelnametext.setVisibility(View.VISIBLE);
+                        pickmodelplus.setVisibility(View.INVISIBLE);
+
 
                     } else {
                         Log.d("filePicker", "No file selected");
                         EditModel=true;
                         System.out.println(EditModel);
+                        pickmodelplus.setVisibility(View.VISIBLE);
+                        modelpickertext.setText("Upload 3D Model");
+                        modelnametext.setVisibility(View.INVISIBLE);
+
                     }
                 });
 
@@ -266,7 +314,7 @@ public class editproduct extends Fragment {
                 System.out.println(ValidateInputs());
                 if(ValidateInputs()){
                     //Upload Image and Save ImageID
-                    UploadProduct();
+                    EditProduct();
                     ShowSnakeBar("edeting your product ...");
                 }
                 else ShowSnakeBar("some informations are missing");
@@ -275,10 +323,11 @@ public class editproduct extends Fragment {
     }
 
 
-    private void UploadProduct(){
+    private void EditProduct(){
         //image bodyPart
                 MultipartBody.Part imagebody=null;
                 if(EditImage) {
+
                     File imagefile = new File(FileHelper.getRealPathFromURI(getContext(), ImageUri));
                     File CompressedImageFile;
                     try {

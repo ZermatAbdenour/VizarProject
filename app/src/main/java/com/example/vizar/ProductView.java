@@ -21,7 +21,6 @@ import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Currency;
 import java.util.Locale;
@@ -186,6 +185,14 @@ public class ProductView extends AppCompatActivity {
                 //System.out.println(Product.weblink);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+            }
+        });
+
+        ImageButton back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
 

@@ -3,6 +3,8 @@ package com.example.vizar;
 
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -61,6 +65,16 @@ public class AddNewProduct extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private ImageView pickimageplus;
+    private TextView pickimagetext;
+    private ImageView thepickedimage;
+
+    private TextView modelpickertext;
+
+    private TextView modelnametext;
+
+    private ImageView         pickmodelplus;
 
     public AddNewProduct() {
         // Required empty public constructor
@@ -131,6 +145,14 @@ public class AddNewProduct extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //pickers references
+        pickimagetext =view.findViewById(R.id.pickimagetext);
+        thepickedimage =view.findViewById(R.id.imagepicked);
+        pickimageplus =view.findViewById(R.id.pickfileplus);
+        modelpickertext = view.findViewById(R.id.modelpickertext);
+        modelnametext = view.findViewById(R.id.pickedmodelname);
+        pickmodelplus = view.findViewById(R.id.modelpickplus);
         //Start Setting References
         NameInputField = view.findViewById(R.id.NameInputField);
         PriceInputField = view.findViewById(R.id.PriceInputField);
@@ -178,8 +200,20 @@ public class AddNewProduct extends Fragment {
                     if (uri != null) {
                         Log.d("PhotoPicker", "Selected URI: " + uri);
                         ImageUri = uri;
+
+                        File image = new File(FileHelper.getRealPathFromURI(getContext(), ImageUri));
+                        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+                        Bitmap bitmap = BitmapFactory.decodeFile(image.getAbsolutePath(),bmOptions);
+                        //bitmap = Bitmap.createScaledBitmap(bitmap,5,5,true);
+                        thepickedimage.setImageBitmap(bitmap);
+                        thepickedimage.setVisibility(View.VISIBLE);
+                        pickimageplus.setVisibility(View.INVISIBLE);
+                        pickimagetext.setVisibility(View.INVISIBLE);
                     } else {
                         Log.d("PhotoPicker", "No media selected");
+                        thepickedimage.setVisibility(View.INVISIBLE);
+                        pickimageplus.setVisibility(View.VISIBLE);
+                        pickimagetext.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -189,9 +223,23 @@ public class AddNewProduct extends Fragment {
                     if (uri.getData() != null) {
                         Log.d("filePicker", "Selected URI: " + uri);
                         ModelUri =uri.getData().getData();
+                        modelpickertext.setText("Selected Model");
+
+                        int cut = ModelUri.getPath().lastIndexOf('/');
+                        String result = null;
+                        if (cut != -1) {
+                            result = ModelUri.getPath().substring(cut + 1);
+                        }
+                        modelnametext.setText(result);
+                        modelnametext.setVisibility(View.VISIBLE);
+                        pickmodelplus.setVisibility(View.INVISIBLE);
+
 
                     } else {
                         Log.d("filePicker", "No file selected");
+                        pickmodelplus.setVisibility(View.VISIBLE);
+                        modelpickertext.setText("Upload 3D Model");
+                        modelnametext.setVisibility(View.INVISIBLE);
                     }
                 });
 
