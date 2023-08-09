@@ -21,6 +21,7 @@ import com.example.vizar.Model.User;
 import com.example.vizar.Model.product;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
+import com.unity3d.player.UnityPlayerActivity;
 
 import java.text.NumberFormat;
 import java.util.Currency;
@@ -221,6 +222,8 @@ public class ProductView extends AppCompatActivity {
     }
 
     public void OpenUnity(View view,String ProductID){
-
+        Intent myIntent = new Intent(this, UnityPlayerActivity.class);
+        myIntent.putExtra("ProductID", ProductID); //Optional parameters
+        this.startActivity(myIntent);
     }
 }

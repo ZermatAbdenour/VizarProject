@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.vizar.Model.User;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.unity3d.player.UnityPlayerActivity;
 
 import java.util.ArrayList;
 
@@ -219,6 +220,8 @@ public class Home extends AppCompatActivity {
     }
 
     public void OpenUnity(View view,String ProductID){
-
+        Intent myIntent = new Intent(this, UnityPlayerActivity.class);
+        myIntent.putExtra("ProductID", ProductID); //Optional parameters
+        this.startActivity(myIntent);
     }
 }
