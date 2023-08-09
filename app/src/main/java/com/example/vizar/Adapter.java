@@ -110,7 +110,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     .priority(Priority.IMMEDIATE);
 
 
-            Glide.with(ProductView).load("http://abdenourzermat-001-site1.htempurl.com/images/" + newproduct.imageid).transition(DrawableTransitionOptions.withCrossFade()).apply(requestOptions).into(imageview);
+            Glide.with(ProductView).load("http://zermatabdenour-001-site1.atempurl.com/images/" + newproduct.imageid).transition(DrawableTransitionOptions.withCrossFade()).apply(requestOptions).into(imageview);
 
 
 

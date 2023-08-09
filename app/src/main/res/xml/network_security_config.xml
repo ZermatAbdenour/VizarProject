@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="true">abdenourzermat-001-site1.htempurl.com</domain>
+        <domain includeSubdomains="true">zermatabdenour-001-site1.atempurl.com</domain>
     </domain-config>
 </network-security-config>

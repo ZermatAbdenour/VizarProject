@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -23,6 +21,8 @@ import com.example.vizar.Model.CreateUserDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import io.paperdb.Paper;
 import io.reactivex.disposables.CompositeDisposable;
@@ -31,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class sign_Up1 extends AppCompatActivity {
-    EditText Name,Password,email;
+    TextInputEditText Name,Password,email;
 
     View bar1;
     View bar2;
@@ -42,6 +42,9 @@ public class sign_Up1 extends AppCompatActivity {
     APILink apiLink;
     int minlength,digits,lowercase,symobles,upercase,strength;
     private CustomSnackbar snackbar;
+    private TextInputLayout  NameLayout;
+    private TextInputLayout  passwordLayout;
+    private TextInputLayout  emailLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +55,17 @@ public class sign_Up1 extends AppCompatActivity {
 
         apiLink = RetrofitClient.getInstance().create(APILink.class);
 
-        Name = (EditText)findViewById(R.id.username);
-        Password = (EditText)findViewById(R.id.password);
-        email = (EditText)findViewById(R.id.Email);
+        Name = (TextInputEditText)findViewById(R.id.username);
+        Password = (TextInputEditText)findViewById(R.id.password);
+        email = (TextInputEditText)findViewById(R.id.email);
+
+        NameLayout = findViewById(R.id.usernameLayout);
+        passwordLayout = findViewById(R.id.passwordLayout);
+        emailLayout = findViewById(R.id.emailLayout);
+
+
+
+
         bar1 = (View) findViewById(R.id.bar1);
         bar2 = (View) findViewById(R.id.bar2);
         bar3 = (View) findViewById(R.id.bar3);
@@ -62,7 +73,65 @@ public class sign_Up1 extends AppCompatActivity {
         minlength=8;
         digits=lowercase=symobles=upercase=0;
         inputchange();
+        Name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            //chekname();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        email.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                               // checkemail();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
+
+    private void chekname() {
+        if(Name.getText().toString().length()<8) {
+            NameLayout.setErrorTextAppearance(R.style.username);
+            NameLayout.setErrorEnabled(true);
+            NameLayout.setError("too short");
+        }else {
+
+            NameLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void checkemail() {
+        emailvalidatoor validator = new emailvalidatoor();
+        if (!validator.validate(email.getText().toString())) {
+            emailLayout.setErrorTextAppearance(R.style.username);
+            emailLayout.setErrorEnabled(true);
+            email.setError("password too weak ");
+        }else {
+
+            emailLayout.setErrorEnabled(false);
+
+        }
+    }
+
     private void inputchange() {
         Password.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,6 +142,7 @@ public class sign_Up1 extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 PasswordValdiation();
+                //checkpassword();
             }
 
             @Override
@@ -82,15 +152,24 @@ public class sign_Up1 extends AppCompatActivity {
         });
     }
 
+    private void checkpassword() {
+        if(strength <2) {
+            passwordLayout.setErrorTextAppearance(R.style.username);
+            passwordLayout.setErrorEnabled(true);
+            passwordLayout.setError("password too weak");
+        }else {
+            passwordLayout.setErrorEnabled(false);
+
+        }
+    }
+
     @SuppressLint("ResourceAsColor")
     private void PasswordValdiation() {
         digits=lowercase=symobles=upercase=0;
             strength =0;
         if(Password.getText().toString().length()>0)
         {
-            strength++;
             if(Password.getText().toString().length()>=minlength) {
-
 
                 for (int i = 0; i < Password.getText().toString().length(); i++) {
                     if (Character.isUpperCase(Password.getText().toString().charAt(i)))
@@ -102,11 +181,13 @@ public class sign_Up1 extends AppCompatActivity {
                     else
                         symobles += 1;
                 }
-                if(lowercase>0)
+                if(lowercase>0&&Password.length()>=8)
                     strength++;
-                if (upercase > 0)
+                if (upercase > 0&&Password.length()>=8)
                     strength++;
-                if (digits > 0)
+                if (digits > 0&&Password.length()>=8)
+                    strength++;
+                if (symobles > 0&&Password.length()>=8)
                     strength++;
             }
         }else
@@ -207,19 +288,32 @@ public class sign_Up1 extends AppCompatActivity {
             );
             */
                 Call<User> registerCall = apiLink.registeruser(createUserDto);
+
+
+
+
                 registerCall.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if(response.isSuccessful()){
-                            Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();
-                            Paper.book().write("Authentified",true);
                             Paper.book().write("User",response.body());
                             //homepage(view);
                             snackbar.Show("Verify your email");
+
+
+
                         }else{
-                            Toast.makeText(sign_Up1.this,response.message(),Toast.LENGTH_SHORT).show();
+                            if(response.code()==401)
+                            {
+                                snackbar.Show("Email Or Username is already Used");
+                            }
+                            else {
+                                snackbar.Show("Error try again");
+
+                            }
 
                         }
+
                         signupLoading.hide();
                     }
 
@@ -231,21 +325,28 @@ public class sign_Up1 extends AppCompatActivity {
                 });
        }}
        private boolean InputsValid(){
-                    boolean valid = true;
-                    if(Name.getText().toString().length()<8) {
-                        valid=false;
-                        Toast.makeText(sign_Up1.this, "username too short", Toast.LENGTH_SHORT).show();
-                    }
-                    if(strength <2) {
-                          valid=false;
-                          Toast.makeText(sign_Up1.this, "password too short", Toast.LENGTH_SHORT).show();
-                    }
-                      if(email.getText().toString().length() < 11) {
-                          valid=false;
-                          Toast.makeText(sign_Up1.this, "Email unvalid", Toast.LENGTH_SHORT).show();
-                      }
+        boolean valid = true;
+        emailvalidatoor validator = new emailvalidatoor();
+        if(Name.getText().toString().length()<6) {
+            valid=false;
 
-                    return valid ;
+            snackbar.Show("Username too short");
+
+        }
+        if(strength <2) {
+            valid=false;
+
+            snackbar.Show("password too weak");
+
+        }
+        if (!validator.validate(email.getText().toString())) {
+               valid = false;
+
+            snackbar.Show("Email unvalid");
+
+        }
+
+           return valid ;
 
        }
 }

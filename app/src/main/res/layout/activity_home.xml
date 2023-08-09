@@ -197,6 +197,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
+            android:id="@+id/ARButton"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginBottom="-45dp"

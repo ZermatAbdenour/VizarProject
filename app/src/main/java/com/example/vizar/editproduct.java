@@ -116,7 +116,7 @@ public class editproduct extends Fragment {
 
     private String ImageID;
     private String ModelID;
-    private String ModelExtension;
+    private String ModelExtension = ".fbx";
 
 
 
@@ -354,8 +354,10 @@ public class editproduct extends Fragment {
 
         //Upload Model and Save ModelID
         MultipartBody.Part modelbody=null;
-
+            if(currentproduct.modelExtension != null)
                 ModelExtension = currentproduct.modelExtension;
+            else
+                ModelExtension = ".fbx";
                 if(EditModel){
     String ModelPath = FileHelper.getRealPathFromURI(getContext(),ModelUri);
     File modelfile = new File(ModelPath);

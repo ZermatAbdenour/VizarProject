@@ -17,14 +17,12 @@ public static Retrofit getInstance(){
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100,TimeUnit.SECONDS).build();
         instance = new Retrofit.Builder()
-                .baseUrl("http://abdenourzermat-001-site1.htempurl.com/")
+                .baseUrl("http://zermatabdenour-001-site1.atempurl.com")
                 .client(client)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-
-
     }
     return instance;
 }
