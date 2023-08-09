@@ -60,7 +60,7 @@ public class ViewAccount extends AppCompatActivity {
             FullName.setText(user.fullName);
             Mobile.setText(user.mobile);
             Address.setText(user.adresse);
-            Glide.with(this).load("http://abdenourzermat-001-site1.htempurl.com/images/" + user.imageID).into(ProfileImage);
+            Glide.with(this).load("http://zermatabdenour-001-site1.atempurl.com/images/" + user.imageID).into(ProfileImage);
         }
         else{
             //Get User from Serelizable extra

@@ -184,11 +184,7 @@ public class AddNewProduct extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView3,HomeMainSellerMode.class,null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commit();
+                fragmentManager.popBackStack();
             }
         });
 
