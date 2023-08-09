@@ -83,21 +83,14 @@ public class warehouse extends Fragment {
         // Inflate the layout for this fragment
 
         apiLink = RetrofitClient.getInstance().create(APILink.class);
-        /*
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        warehouselist.add(new product("table",200,"Published since: 14/03/2022"));
-        */
+
         user = Paper.book().read("User");
 
         Call<List<product>> getuserproducts = apiLink.getuserproducts(user.id);
+
+        if(warehouselist.isEmpty())
+        {
+
 
         getuserproducts.enqueue(new Callback<List<product>>() {
             @Override
@@ -111,7 +104,11 @@ public class warehouse extends Fragment {
 
             }
         });
+        }else
+        {
 
+            adapter.notifyDataSetChanged();
+        }
 
         return inflater.inflate(R.layout.fragment_warehouse, container, false);
     }
@@ -134,11 +131,7 @@ public class warehouse extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getParentFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.fragmentContainerView3,HomeMainSellerMode.class,null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack(null)
-                        .commit();
+                fragmentManager.popBackStack();
             }
         });
 

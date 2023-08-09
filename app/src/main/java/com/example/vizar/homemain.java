@@ -169,9 +169,20 @@ import retrofit2.Response;
             getproducts.enqueue(new Callback<List<product>>() {
                 @Override
                 public void onResponse(Call<List<product>> call, Response<List<product>> response) {
+
+                    if(response.body().size()>0){
                     productslist.addAll(response.body());
                     Offset+=response.body().size();
-                }
+
+                }else {
+
+                    System.out.println("response size : "+response.body().size()+"       655555555555555555555555555555555555555555555555555555555555555555");
+                    concatAdapter.removeAdapter(footer);
+                    footer = new footeradapter(R.layout.savedfooter);
+                    concatAdapter.addAdapter(footer);
+                    //      concatAdapter.notifyDataSetChanged();
+
+                }}
 
                 @Override
                 public void onFailure(Call<List<product>> call, Throwable t) {

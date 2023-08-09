@@ -172,6 +172,7 @@ searchview = view;
         });
 
         String cat = Paper.book().read("category");
+        if(cat != null)
         if(cat.length()>0)
         {
             filterstate[0]=0;

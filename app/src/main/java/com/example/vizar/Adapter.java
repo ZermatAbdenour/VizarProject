@@ -1,5 +1,6 @@
 package com.example.vizar;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -126,6 +127,10 @@ if(!edit)
                     i.putExtra("Product", newproduct);
                     view.getContext().startActivity(i);
 }else {
+    //animation navbar
+    ObjectAnimator animation = ObjectAnimator.ofFloat(Home.findViewById(R.id.Navbar), "translationY", 500f);
+    animation.setDuration(500);
+    animation.start();
     //editpage
     ((Home)Home).product = newproduct;
     ((Home)Home).editproductfragment();
