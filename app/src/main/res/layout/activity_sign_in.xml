@@ -40,8 +40,11 @@
         app:layout_constraintVertical_bias="0.439">
 
 
-        <EditText
-            android:id="@+id/Email1"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="326dp"
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
@@ -51,16 +54,31 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="39dp"
             android:layout_marginEnd="6dp"
-            android:layout_marginBottom="211dp"
-            android:background="@drawable/input"
-            android:inputType="textEmailAddress"
-            android:padding="10dp"
-            android:textAppearance="@style/username"
-            android:textSize="22dp"
-            android:translationZ="3dp" />
+            android:layout_marginBottom="0dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:boxStrokeColor="#00FFFFFF"
+            app:endIconMode="clear_text">
 
-        <EditText
-            android:id="@+id/password1"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Email1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:inputType="textEmailAddress"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="326dp"
             android:layout_height="48dp"
             android:layout_alignParentStart="true"
@@ -70,13 +88,27 @@
             android:layout_marginStart="13dp"
             android:layout_marginTop="123dp"
             android:layout_marginEnd="3dp"
-            android:layout_marginBottom="129dp"
-            android:background="@drawable/input"
+            android:layout_marginBottom="0dp"
+            app:boxCornerRadiusBottomStart="15dp"
+            app:boxCornerRadiusTopEnd="15dp"
+            app:boxCornerRadiusBottomEnd="15dp"
+            app:boxCornerRadiusTopStart="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:boxStrokeColor="#00FFFFFF"
+            app:endIconMode="password_toggle"
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:inputType="textPassword"
-            android:padding="10dp"
-            android:translationZ="3dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
 
-
+            />
+        </com.google.android.material.textfield.TextInputLayout>
         <TextView
             android:id="@+id/Emailtext"
             android:layout_width="326dp"
@@ -113,25 +145,6 @@
             android:textAppearance="@style/username"
             android:translationZ="3dp" />
 
-        <TextView
-            android:id="@+id/ForgotPassword"
-            android:layout_width="117dp"
-            android:layout_height="24dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="220dp"
-            android:layout_marginTop="199dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginBottom="80dp"
-            android:gravity="top"
-            android:lineSpacingExtra="-1sp"
-            android:text="Forgot Password"
-            android:textAppearance="@style/username"
-            android:textSize="14sp"
-            android:translationZ="0dp" />
-
         <Button
             android:id="@+id/Signin"
             android:layout_width="324dp"
@@ -152,7 +165,7 @@
             android:translationZ="3dp" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxremembreme"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentStart="true"

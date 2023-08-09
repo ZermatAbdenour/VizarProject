@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -152,7 +153,7 @@ public class ProductView extends AppCompatActivity {
 
         //image
         ImageView Image = (ImageView) findViewById(R.id.ProductViewImage);
-        Glide.with(this).load("http://abdenourzermat-001-site1.htempurl.com/images/" + Product.imageid).transition(DrawableTransitionOptions.withCrossFade()).into(Image);
+        Glide.with(this).load("http://zermatabdenour-001-site1.atempurl.com/images/" + Product.imageid).transition(DrawableTransitionOptions.withCrossFade()).into(Image);
 
         //name
         TextView Name = (TextView) findViewById(R.id.ProductViewName);
@@ -196,6 +197,16 @@ public class ProductView extends AppCompatActivity {
             }
         });
 
+        //View in AR button
+
+        Button ProductARButton = findViewById(R.id.ProductARButton);
+        ProductARButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenUnity(view,Product.id);
+            }
+        });
+
         //Set data
         TextView Height = (TextView) findViewById(R.id.ProductViewHeight);
         Height.setText(Float.toString(Product.height));
@@ -207,5 +218,9 @@ public class ProductView extends AppCompatActivity {
         Weight.setText(Float.toString(Product.weight));
         TextView Width = (TextView) findViewById(R.id.ProductViewWidth);
         Width.setText(Float.toString(Product.width));
+    }
+
+    public void OpenUnity(View view,String ProductID){
+
     }
 }

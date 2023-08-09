@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.vizar.Model.User;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -59,7 +60,14 @@ public class Home extends AppCompatActivity {
                 Home.this, R.anim.upslide));
         headercontainer.setOutAnimation(AnimationUtils.loadAnimation(
                 Home.this, R.anim.downslide));*/
+        FloatingActionButton ArButton = findViewById(R.id.ARButton);
+        ArButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OpenUnity(view,"fdsfsfsdfds");
 
+            }
+        });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if((boolean)Paper.book().read("IsSeller",false))
@@ -138,7 +146,7 @@ public class Home extends AppCompatActivity {
         //Update the Top Profile Image
         ImageView UserImage = findViewById(R.id.UserTopImage);
         User user = (User) Paper.book().read("User");
-        Glide.with(this).load("http://abdenourzermat-001-site1.htempurl.com/images/" + user.imageID).into(UserImage);
+        Glide.with(this).load("http://zermatabdenour-001-site1.atempurl.com/images/" + user.imageID).into(UserImage);
         UserImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,5 +218,7 @@ public class Home extends AppCompatActivity {
 
     }
 
+    public void OpenUnity(View view,String ProductID){
 
+    }
 }

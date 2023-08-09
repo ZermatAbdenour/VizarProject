@@ -3,8 +3,7 @@ package com.example.vizar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.CheckBox;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.PickVisualMediaRequest;
@@ -14,6 +13,8 @@ import com.example.vizar.Model.LoginDto;
 import com.example.vizar.Model.User;
 import com.example.vizar.Remote.APILink;
 import com.example.vizar.Remote.RetrofitClient;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import io.paperdb.Paper;
 import io.reactivex.disposables.CompositeDisposable;
@@ -22,23 +23,31 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Sign_in extends AppCompatActivity {
-    EditText Password,email;
+    TextInputEditText Password,email;
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     APILink apiLink;
     CustomSnackbar snackbar;
 
     ActivityResultLauncher<PickVisualMediaRequest> pickMedia;
+    private TextInputLayout passwordLayout;
+    private TextInputLayout emailLayout;
+    private CheckBox remembreme;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         snackbar = new CustomSnackbar(this);
-
         apiLink = RetrofitClient.getInstance().create(APILink.class);
 
-        Password = (EditText)findViewById(R.id.password1);
-        email = (EditText)findViewById(R.id.Email1);
+        Password = (TextInputEditText)findViewById(R.id.password1);
+        email = (TextInputEditText)findViewById(R.id.Email1);
+
+        passwordLayout = (TextInputLayout)findViewById(R.id.passwordLayout);
+        emailLayout = (TextInputLayout)findViewById(R.id.emailLayout);
+
+        remembreme = findViewById(R.id.checkBoxremembreme);
 
     }
 
@@ -63,10 +72,9 @@ public class Sign_in extends AppCompatActivity {
 
 
     public void signin(View view){
-
-
         if(InputsValid())
         {
+
             LoadingDialog signinLoading = new LoadingDialog(this);
 
 
@@ -78,8 +86,13 @@ public class Sign_in extends AppCompatActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
+                    System.out.println("ffdsfdddddddddddddddddddddddddddd");
                     if(response.isSuccessful()){
+                        if(remembreme.isChecked())
                         Paper.book().write("Authentified",true);
+                        else
+                        Paper.book().write("Authentified",false);
+
                         Paper.book().write("User",response.body());
                         homepage(view);
                     }
@@ -88,6 +101,8 @@ public class Sign_in extends AppCompatActivity {
                                 snackbar.Show("Email not found");
                         if(response.code() == 401)
                             snackbar.Show("Password is wrong");
+                        if(response.code()==402)
+                            snackbar.Show("Please Verify your Email");
 
                         System.out.println(response.code());
 
@@ -98,6 +113,7 @@ public class Sign_in extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     signinLoading.dismiss();
+                    System.out.println("ffdsfdddddddddddddddddddddddddddd : " +t);
                 }
             });
         }
@@ -105,15 +121,21 @@ public class Sign_in extends AppCompatActivity {
 
     private boolean InputsValid(){
         boolean valid = true;
-
+        emailvalidatoor validator = new emailvalidatoor();
         if(Password.getText().toString().length() < 8) {
             valid=false;
-            Toast.makeText(Sign_in.this, "password too short", Toast.LENGTH_SHORT).show();
+            passwordLayout.setErrorEnabled(true);
+            passwordLayout.setError("wrongpassword");
         }
-        if(email.getText().toString().length() < 11) {
-            valid=false;
-            Toast.makeText(Sign_in.this, "Email unvalid", Toast.LENGTH_SHORT).show();
+
+
+        if (!validator.validate(email.getText().toString())) {
+            valid = false;
+            emailLayout.setErrorEnabled(true);
+            emailLayout.setError("email unvalid");
         }
+
+
 
         return valid ;
 

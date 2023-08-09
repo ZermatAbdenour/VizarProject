@@ -17,11 +17,15 @@ public class VizarApp extends Application {
         Paper.init(this);
 
         User user = Paper.book().read("User",null);
+
         boolean Authentified = Paper.book().read("Authentified",false);
+
         if(Authentified && user != null){
             Intent intent = new Intent(this,Home.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
+
+
 }
