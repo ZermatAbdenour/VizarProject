@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.unity3d.player.UnityPlayerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
@@ -84,6 +85,7 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
+                if(getVisibleFragment().getClass() != homemain.class)
                 if(!(boolean)Paper.book().read("IsSeller",false))
                 {
                     fragmentManager.beginTransaction()
@@ -223,5 +225,16 @@ public class Home extends AppCompatActivity {
         Intent myIntent = new Intent(this, UnityPlayerActivity.class);
         myIntent.putExtra("ProductID", ProductID); //Optional parameters
         this.startActivity(myIntent);
+    }
+
+
+    private Fragment getVisibleFragment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null && fragment.isVisible())
+                return fragment;
+        }
+        return null;
     }
 }
