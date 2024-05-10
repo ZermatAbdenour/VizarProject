@@ -23,6 +23,6 @@ To get started with VizAR, follow these steps:
 *Figure 3: AR visualization*
 
 ## Visual Identity
-
 ![logo](https://github.com/ZermatAbdenour/VizarProject/assets/128800613/7c54a64c-dcb5-4fb7-b7b0-19b8f1813b32)
+
 The name VizAR is derived from the words "visualization" and "AR" (Augmented Reality), symbolizing the app's core features and functionalities.
